@@ -26,7 +26,7 @@ namespace CosmoHosting.Controllers
         {
             if (model == null)
                 return BadRequest(new { message = "Datos inválidos" });
-            
+
             var secretKey = KeyGeneration.GenerateRandomKey(20);
             var base32SecretKey = Base32Encoding.ToString(secretKey);
 
@@ -79,8 +79,9 @@ namespace CosmoHosting.Controllers
 
             return Ok(new { message = "Inicio de sesión exitoso", user = userFound });
         }
-    
-        public class PassWordLogin {
+
+        public class PassWordLogin
+        {
             public required string Email { get; set; }       // Email del usuario
             public required string PasswordHash { get; set; } // Hash de la contraseña
         }

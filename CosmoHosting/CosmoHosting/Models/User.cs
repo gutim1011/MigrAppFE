@@ -14,7 +14,7 @@
 
         public required string PasswordHash { get; set; }
 
-        public string OtpSecretKey { get; set; } = string.Empty; 
+        public string OtpSecretKey { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; }
     }
