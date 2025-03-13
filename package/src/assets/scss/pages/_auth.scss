@@ -110,16 +110,81 @@
 
 .login-container {
   height: 100vh;
-  background: linear-gradient(135deg, #001f3f, #0056b3);
-}
-.login-image {
-  background: linear-gradient(135deg, #001f3f, #0056b3);
   display: flex;
   justify-content: center;
-  bottom: 0;
-  align-items: center;
+  align-items: center; // Centrar todo el contenido
 }
+
+.login-image {
+  width: 50%; /* Que ocupe la mitad de la pantalla */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #001f3f, #0056b3);
+}
+
 .login-image img {
-  max-height: 611px;
-  max-width: 671px;
+  height: 100%; /* Que la imagen ocupe todo el alto */
+  width: auto;  /* Mantener proporción */
+  object-fit: cover;
+}
+
+.login-card {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px; // Centrar mejor los elementos
+}
+
+.auth-box {
+  text-align: center;
+  width: 100%;
+}
+
+.auth-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px; // Reduce el espacio entre el título y el formulario
+}
+
+.boxed-auth {
+  width: 100%;
+  max-width: 500px; // Aumentar tamaño de la tarjeta
+  padding: 50px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px; // Tamaño más grande del texto
+}
+
+
+mat-label {
+  text-align: left;
+  display: block;
+  font-weight: flex;
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+.login-button {
+  font-size: 18px; // Botón más grande
+  padding: 14px;
+  border-radius: 6px;
+  transition: background 0.3s;
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+matInput{
+  background-color: aqua;
 }

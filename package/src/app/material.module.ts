@@ -42,6 +42,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [],
   exports: [
@@ -80,6 +82,7 @@ import { MatTableModule } from '@angular/material/table';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    HttpClientModule
   ],
 })
 export class MaterialModule {}

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
+import { AuthService } from 'src/app/services/auth.service'; // 👈 Importa el servicio de autenticación
 
 @Component({
   selector: 'app-side-register',
@@ -14,12 +15,17 @@ import { MaterialModule } from 'src/app/material.module';
 export class AppSideRegisterComponent {
   options = this.settings.getOptions();
 
-  constructor(private settings: CoreService, private router: Router) {}
+  constructor(
+    private settings: CoreService, 
+    private router: Router, 
+    private authService: AuthService // 👈 Inyecta el servicio
+  ) {}
 
   form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   get f() {
@@ -27,7 +33,31 @@ export class AppSideRegisterComponent {
   }
 
   submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/']);
+    if (this.form.invalid) {
+      alert('Por favor, completa todos los campos correctamente.');
+      return;
+    }
+
+    if (this.form.value.password !== this.form.value.confirmPassword) {
+      alert('Las contraseñas no coinciden.');
+      return;
+    }
+
+    const userData = {
+      Email: this.form.value.email,
+      PhoneNumber: this.form.value.phone,
+      PasswordHash: this.form.value.password,
+    };
+
+    this.authService.register(userData).subscribe(
+      response => {
+        alert('Registro exitoso');
+        this.router.navigate(['/authentication/login']); // Redirigir al login
+      },
+      error => {
+        alert('Error en el registro');
+        console.error(error);
+      }
+    );
   }
 }
