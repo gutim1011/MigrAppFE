@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
-
+using CosmoHosting.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
-
+builder.Services.AddScoped<IOtpCode, OtpService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

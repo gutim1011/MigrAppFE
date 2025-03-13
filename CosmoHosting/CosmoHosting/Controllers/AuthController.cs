@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using OtpNet;
+using CosmoHosting.Services;
 
 namespace CosmoHosting.Controllers
 {
@@ -24,12 +26,16 @@ namespace CosmoHosting.Controllers
         {
             if (model == null)
                 return BadRequest(new { message = "Datos inválidos" });
+            
+            var secretKey = KeyGeneration.GenerateRandomKey(20);
+            var base32SecretKey = Base32Encoding.ToString(secretKey);
 
             var user = new User()
             {
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
-                PasswordHash = model.PasswordHash
+                PasswordHash = model.PasswordHash,
+                OtpSecretKey = base32SecretKey
             };
 
             await _appDbContext.Users.AddAsync(user);
@@ -45,7 +51,7 @@ namespace CosmoHosting.Controllers
 
         [HttpPost]
         [Route("api/auth/login")]
-        public async Task<IActionResult> Login([FromBody] User model)
+        public async Task<IActionResult> Login([FromBody] PassWordLogin model)
         {
             if (model == null)
                 return BadRequest(new { message = "Datos inválidos" });
@@ -73,7 +79,11 @@ namespace CosmoHosting.Controllers
 
             return Ok(new { message = "Inicio de sesión exitoso", user = userFound });
         }
-
+    
+        public class PassWordLogin {
+            public required string Email { get; set; }       // Email del usuario
+            public required string PasswordHash { get; set; } // Hash de la contraseña
+        }
 
     }
 }
