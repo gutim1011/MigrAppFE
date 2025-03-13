@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/juan/P2/MigrApp/CosmoHosting/CosmoHosting/CosmoHosting.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\p2\\CosmoHosting\\CosmoHosting\\CosmoHosting.csproj": {}
   },
   "projects": {
-    "/home/juan/P2/MigrApp/CosmoHosting/CosmoHosting/CosmoHosting.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\p2\\CosmoHosting\\CosmoHosting\\CosmoHosting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/juan/P2/MigrApp/CosmoHosting/CosmoHosting/CosmoHosting.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\p2\\CosmoHosting\\CosmoHosting\\CosmoHosting.csproj",
         "projectName": "CosmoHosting",
-        "projectPath": "/home/juan/P2/MigrApp/CosmoHosting/CosmoHosting/CosmoHosting.csproj",
-        "packagesPath": "/home/juan/.nuget/packages/",
-        "outputPath": "/home/juan/P2/MigrApp/CosmoHosting/CosmoHosting/obj/",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\p2\\CosmoHosting\\CosmoHosting\\CosmoHosting.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\p2\\CosmoHosting\\CosmoHosting\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/juan/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -82,12 +88,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.2, 9.0.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -96,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
