@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|c:\\users\\sofia\\source\\cosmohosting\\cosmohosting\\cosmohosting\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|c:\\users\\sofia\\source\\cosmohosting\\cosmohosting\\cosmohosting\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|c:\\users\\sofia\\source\\cosmohosting\\cosmohosting\\cosmohosting\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|c:\\users\\sofia\\source\\cosmohosting\\cosmohosting\\cosmohosting\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|c:\\users\\sofia\\source\\cosmohosting\\cosmohosting\\cosmohosting\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{B69DEC04-1857-4C23-A2A0-2EA1FBD9B4B6}|CosmoHosting\\CosmoHosting.csproj|solutionrelative:cosmohosting\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
@@ -18,15 +34,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Data\\AppDBContext.cs",
+              "RelativeDocumentMoniker": "CosmoHosting\\Data\\AppDBContext.cs",
+              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Data\\AppDBContext.cs",
+              "RelativeToolTip": "CosmoHosting\\Data\\AppDBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T03:16:20.268Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Models\\User.cs",
+              "RelativeDocumentMoniker": "CosmoHosting\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Models\\User.cs",
+              "RelativeToolTip": "CosmoHosting\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T03:04:36.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "CosmoHosting\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "CosmoHosting\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T02:57:53.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\appsettings.json",
+              "RelativeDocumentMoniker": "CosmoHosting\\appsettings.json",
+              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\appsettings.json",
+              "RelativeToolTip": "CosmoHosting\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-12T02:23:59.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Program.cs",
+              "RelativeDocumentMoniker": "CosmoHosting\\Program.cs",
+              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Program.cs",
+              "RelativeToolTip": "CosmoHosting\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T00:23:10.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\appsettings.Development.json",
               "RelativeDocumentMoniker": "CosmoHosting\\appsettings.Development.json",
@@ -38,17 +115,8 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Program.cs",
-              "RelativeDocumentMoniker": "CosmoHosting\\Program.cs",
-              "ToolTip": "C:\\Users\\Sofia\\source\\cosmohosting\\CosmoHosting\\CosmoHosting\\Program.cs",
-              "RelativeToolTip": "CosmoHosting\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T00:23:10.382Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

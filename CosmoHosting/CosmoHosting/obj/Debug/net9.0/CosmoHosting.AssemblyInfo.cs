@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9af48f5e8e4fa9bc23ac7dfd6853a26cb57ee04a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
