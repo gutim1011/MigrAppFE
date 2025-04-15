@@ -1,0 +1,190 @@
+@use "../variables" as *;
+
+.blank-layout-container {
+  height: 100vh;
+  display: flex;
+  background-size: cover;
+  align-items: center;
+}
+
+.auth-title {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.bg-gredient {
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+    background: radial-gradient(rgb(210, 241, 223),
+        rgb(211, 215, 250),
+        rgb(186, 216, 244)) 0% 0% / 400% 400%;
+    animation: 15s ease 0s infinite normal none running gradient;
+    z-index: -1;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+.img-height {
+  height: calc(100vh - 83px);
+}
+
+.custom-row {
+  &.row {
+    margin-right: -8px;
+    margin-left: -8px;
+
+    .col-2,
+    .col-12 {
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+  }
+}
+
+.or-border {
+  position: relative;
+  text-align: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 120px;
+    top: 50%;
+    height: 1px;
+    background: var(--mat-sys-outline);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 120px;
+    top: 50%;
+    height: 1px;
+    background: var(--mat-sys-outline);
+  }
+}
+
+.boxed-auth {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.max-width-form {
+  max-width: 450px;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid {
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: $error !important;
+  }
+}
+
+.error-msg {
+  position: absolute;
+  top: -19px;
+  right: 3px;
+}
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; // Centrar todo el contenido
+}
+
+.login-image {
+  width: 50%; /* Que ocupe la mitad de la pantalla */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #001f3f, #0056b3);
+}
+
+.login-image img {
+  height: 100%; /* Que la imagen ocupe todo el alto */
+  width: auto;  /* Mantener proporción */
+  object-fit: cover;
+}
+
+.login-card {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px; // Centrar mejor los elementos
+}
+
+.auth-box {
+  text-align: center;
+  width: 100%;
+}
+
+.auth-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px; // Reduce el espacio entre el título y el formulario
+}
+
+.boxed-auth {
+  width: 100%;
+  max-width: 500px; // Aumentar tamaño de la tarjeta
+  padding: 50px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px; // Tamaño más grande del texto
+}
+
+
+mat-label {
+  text-align: left;
+  display: block;
+  font-weight: flex;
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+.login-button {
+  font-size: 18px; // Botón más grande
+  padding: 14px;
+  border-radius: 6px;
+  transition: background 0.3s;
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+matInput{
+  background-color: aqua;
+}

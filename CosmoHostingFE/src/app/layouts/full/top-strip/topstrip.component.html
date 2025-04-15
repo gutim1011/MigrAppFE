@@ -1,0 +1,87 @@
+<div class="app-topstrip bg-white text-dark p-3 w-100 d-lg-flex align-items-center justify-content-between border-bottom">
+    <h2 class="f-s-20 f-w-600 m-0 text-primary">MIGRAPP</h2>
+
+    <div class="d-flex align-items-center gap-5">
+        <!-- Inicio -->
+        <a mat-button class="text-dark d-flex align-items-center gap-2 hover-bg-light" href="#">
+            <i-tabler name="home" class="icon-20"></i-tabler>
+            Inicio
+        </a>
+
+        <!-- Mis Trámites -->
+        <button class="text-dark d-flex align-items-center gap-2 hover-bg-light" mat-button
+            [matMenuTriggerFor]="tramitesMenu">
+            <i-tabler name="file-text" class="icon-20"></i-tabler>
+            Mis Trámites
+            <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+        </button>
+        
+        <!-- Idioma -->
+        <button class="text-dark d-flex align-items-center gap-2 hover-bg-light" mat-button
+            [matMenuTriggerFor]="idiomaMenu">
+            <i-tabler name="language" class="icon-20"></i-tabler>
+            Idioma
+            <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+        </button>
+    </div>
+
+    <!-- Menú Idioma -->
+    <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">
+        <button mat-menu-item class="d-flex align-items-center gap-3">
+            <span class="flag-icon flag-icon-es"></span>
+            Español
+        </button>
+        <button mat-menu-item class="d-flex align-items-center gap-3">
+            <span class="flag-icon flag-icon-us"></span>
+            English
+        </button>
+    </mat-menu>
+
+    <!-- Menú Trámites -->
+    <mat-menu #tramitesMenu="matMenu" class="nav-dropdown">
+        <button mat-menu-item class="d-flex align-items-center gap-3">
+            <i-tabler name="file" class="icon-18 text-primary"></i-tabler>
+            Trámite 1
+        </button>
+        <button mat-menu-item class="d-flex align-items-center gap-3">
+            <i-tabler name="file" class="icon-18 text-primary"></i-tabler>
+            Trámite 2
+        </button>
+    </mat-menu>
+</div>
+
+<!-- Estilos actualizados -->
+<style>
+.app-topstrip {
+    background: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-dropdown {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.nav-dropdown button {
+    color: #333;
+    padding: 10px 18px;
+}
+
+.nav-dropdown button:hover {
+    background: #f8f9fa;
+}
+
+.hover-bg-light:hover {
+    background: #f8f9fa !important;
+    border-radius: 6px;
+}
+
+.text-primary {
+    color: #64B5F6 !important;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+</style>

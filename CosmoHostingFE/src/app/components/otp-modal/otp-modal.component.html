@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Verificación OTP</h2>
+<mat-dialog-content>
+  <p>Se ha enviado un código de verificación a tu correo electrónico.</p>
+  <form [formGroup]="otpForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Código OTP</mat-label>
+      <input matInput type="text" formControlName="otpCode" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="validateOtp()" [disabled]="otpForm.invalid">
+    Verificar
+  </button>
+</mat-dialog-actions>

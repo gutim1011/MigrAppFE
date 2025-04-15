@@ -1,0 +1,62 @@
+<div class="login-container">
+  <!-- Imagen en el lado izquierdo -->
+  <div class="login-image">
+    <img src="assets/images/backgrounds/login_register.png" alt="Family Hug" />
+  </div>
+  
+  <!-- Formulario en el lado derecho -->
+  <div class="login-card">
+    <div class="auth-box">
+      <h2 class="auth-title">Crea tu cuenta</h2>
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <mat-label class="input-label">Correo</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="email" formControlName="email" required />
+              <mat-error *ngIf="f.email.invalid && f.email.touched">
+                Ingrese un correo válido
+              </mat-error>
+            </mat-form-field>
+          
+            <mat-label class="input-label">Teléfono</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" formControlName="phone" required />
+              <mat-error *ngIf="f.phone.invalid && f.phone.touched">
+                Ingrese un número de teléfono válido
+              </mat-error>
+            </mat-form-field>
+          
+            <mat-label class="input-label">Contraseña</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" formControlName="password" required />
+              <mat-error *ngIf="f.password.invalid && f.password.touched">
+                La contraseña debe tener al menos 6 caracteres
+              </mat-error>
+            </mat-form-field>
+          
+            <mat-label class="input-label">Confirmar Contraseña</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" formControlName="confirmPassword" required />
+              <mat-error *ngIf="f.confirmPassword.invalid && f.confirmPassword.touched">
+                La confirmación de contraseña es obligatoria
+              </mat-error>
+            </mat-form-field>
+          
+            <button mat-flat-button color="primary" class="w-100" type="submit">
+              Regístrate
+            </button>
+          </form>
+          
+
+          <span class="d-block f-w-500 text-center m-t-24">
+            ¿Ya tienes cuenta?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Inicia Sesion
+            </a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
