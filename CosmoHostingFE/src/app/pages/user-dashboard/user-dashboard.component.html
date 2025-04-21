@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  <!-- User Profile Card -->
+  <div class="profile-section">
+    <div class="card profile-card">
+      <img src="assets/images/user.jpg" alt="User" class="avatar" />
+      <h3>Lorem Ipsum</h3>
+      <p>Lorem ipsum dolor ...</p>
+    </div>
+  </div>
+
+  <!-- Central Content: Notifications, Alerts, Progress, Chart -->
+  <div class="center-section">
+    <div class="top-row">
+      <div class="card notifications-card">
+        <div class="card-header">
+          <i class="fa-solid fa-bell"></i>
+          <h4>Notifications</h4>
+        </div>
+        <ul>
+          <li *ngFor="let n of [1,2,3]">Lorem Ipsum ...</li>
+        </ul>
+      </div>
+
+      <div class="card alerts-card">
+        <div class="card-header">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <h4>Alerts</h4>
+        </div>
+        <ul>
+          <li *ngFor="let a of [1,2,3]">Lorem Ipsum ...</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card progress-card">
+      <span>Overall progress:</span>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="70"></div>
+      </div>
+    </div>
+
+    <div class="chart-card card">
+      <p>Chart goes here</p>
+    </div>
+  </div>
+
+  <!-- Right Side: Tasks -->
+  <div class="tasks-section">
+    <div class="card tasks-card">
+      <h4>Pending tasks</h4>
+      <p>You have <strong>#</strong> pending tasks</p>
+      <ul>
+        <li *ngFor="let t of [1,2,3,4,5]">Task #{{t}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-button">
+    <i class="fa-solid fa-headset"></i>  
+    Hablar con un asesor
+  </button>
+</div>
