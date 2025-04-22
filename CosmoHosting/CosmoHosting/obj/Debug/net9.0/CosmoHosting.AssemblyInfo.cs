@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fff5c8406f1ab5c7cbdb38a05d876c9371008d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c27e0b0ba9fcbc411a4b4d24e4cc691c100929c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CosmoHosting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
