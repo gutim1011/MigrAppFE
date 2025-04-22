@@ -1,0 +1,96 @@
+<div class="dashboard-container">
+  <!-- User Profile Section -->
+  <div class="profile-section">
+    <!-- Profile Card -->
+    <div class="card profile-card">
+      <!-- Avatar -->
+      <div class="avatar-wrapper">
+        <img src="assets/images/test.jpg" alt="User" class="avatar" />
+      </div>
+
+      <!-- Inner Info Card (Name + Description) -->
+      <div class="inner-info-card">
+        <h3>Jhon Doe</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Central Content: Notifications, Alerts, Progress -->
+  <div class="center-section">
+    <div class="top-row">
+      <div class="card notifications-card">
+        <!-- Card Header -->
+        <div class="card-header">
+          <i class="fa-solid fa-bell"></i>
+          <h4>Notifications</h4>
+        </div>
+        
+        <!-- Notifications List -->
+        <div class="notifications-list">
+          <ul>
+            <li>Notification #1</li>
+            <li>Notification #2</li>
+            <li>Notification #3</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card alerts-card">
+        <div class="card-header">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <h4>Alerts</h4>
+        </div>
+
+        <div class="notifications-list">
+          <ul>
+            <li>Alert #1</li>
+            <li>Alert #2</li>
+            <li>Alert #3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card progress-card">
+      <span>Overall progress:</span>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="70"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart card: ¡fuera de center-section! -->
+  <div class="chart-card card">
+    <p>*Chart goes here*</p>
+  </div>
+
+  <!-- Right Side: Tasks -->
+  <div class="tasks-section">
+    <div class="card tasks-card">
+      <h4>Pending tasks</h4>
+      <p>You have <strong>#</strong> pending tasks</p>
+      <ul>
+        <li *ngFor="let t of [1,2,3,4,5]">Task #{{t}}</li>
+      </ul>
+
+      <div class="notifications-list">
+        <ul>
+          <li>Task #1</li>
+          <li>Task #2</li>
+          <li>Task #4</li>
+          <li>Task #5</li>
+          <li>Task #6</li>
+          <li>Task #7</li>
+          <li>Task #8</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-button">
+    <i class="fa-solid fa-headset"></i>
+    Speak to an advisor
+  </button>
+</div>

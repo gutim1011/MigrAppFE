@@ -1,87 +1,117 @@
-<div class="app-topstrip bg-white text-dark p-3 w-100 d-lg-flex align-items-center justify-content-between border-bottom">
-    <h2 class="f-s-20 f-w-600 m-0 text-primary">MIGRAPP</h2>
-
-    <div class="d-flex align-items-center gap-5">
+<div class="app-topstrip">
+    <div class="topstrip-inner">
+      <!-- Logo -->
+      <img src="assets/images/logos/migrapplogo.png" alt="MigrApp Logo" class="logo" />
+    
+      <!-- Navigation -->
+      <div class="nav-links">
         <!-- Inicio -->
-        <a mat-button class="text-dark d-flex align-items-center gap-2 hover-bg-light" href="#">
-            <i-tabler name="home" class="icon-20"></i-tabler>
-            Inicio
+        <a mat-button class="nav-item" href="#">
+          <i-tabler name="home" class="icon-20"></i-tabler>
+          Inicio
         </a>
-
+    
         <!-- Mis Trámites -->
-        <button class="text-dark d-flex align-items-center gap-2 hover-bg-light" mat-button
-            [matMenuTriggerFor]="tramitesMenu">
-            <i-tabler name="file-text" class="icon-20"></i-tabler>
-            Mis Trámites
-            <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+        <button class="nav-item" mat-button [matMenuTriggerFor]="tramitesMenu">
+          <i-tabler name="file-text" class="icon-20"></i-tabler>
+          Mis Trámites
+          <i-tabler name="chevron-down" class="icon-16"></i-tabler>
         </button>
-        
+    
         <!-- Idioma -->
-        <button class="text-dark d-flex align-items-center gap-2 hover-bg-light" mat-button
-            [matMenuTriggerFor]="idiomaMenu">
-            <i-tabler name="language" class="icon-20"></i-tabler>
-            Idioma
-            <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+        <button class="nav-item" mat-button [matMenuTriggerFor]="idiomaMenu">
+          <i-tabler name="language" class="icon-20"></i-tabler>
+          Idioma
+          <i-tabler name="chevron-down" class="icon-16"></i-tabler>
         </button>
+      </div>
+    
+      <!-- Avatar -->
+      <div class="avatar-wrapper">
+        <img src="assets/images/test.jpg" alt="User" class="avatar" />
+      </div>
     </div>
+    
+    <!-- Mat menus stay outside topstrip-inner -->
+    <mat-menu #tramitesMenu="matMenu" class="nav-dropdown">...</mat-menu>
+    <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">...</mat-menu>
+  </div>  
+  
+   
 
-    <!-- Menú Idioma -->
-    <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">
-        <button mat-menu-item class="d-flex align-items-center gap-3">
-            <span class="flag-icon flag-icon-es"></span>
-            Español
-        </button>
-        <button mat-menu-item class="d-flex align-items-center gap-3">
-            <span class="flag-icon flag-icon-us"></span>
-            English
-        </button>
-    </mat-menu>
-
-    <!-- Menú Trámites -->
-    <mat-menu #tramitesMenu="matMenu" class="nav-dropdown">
-        <button mat-menu-item class="d-flex align-items-center gap-3">
-            <i-tabler name="file" class="icon-18 text-primary"></i-tabler>
-            Trámite 1
-        </button>
-        <button mat-menu-item class="d-flex align-items-center gap-3">
-            <i-tabler name="file" class="icon-18 text-primary"></i-tabler>
-            Trámite 2
-        </button>
-    </mat-menu>
-</div>
-
-<!-- Estilos actualizados -->
 <style>
 .app-topstrip {
-    background: #ffffff !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  color: #757575;
+  font-weight: 600;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 2rem;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
-.nav-dropdown {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+.topstrip-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
 }
 
-.nav-dropdown button {
-    color: #333;
-    padding: 10px 18px;
+.logo {
+  width: 300px; /* Adjust the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the logo scales properly */
 }
 
-.nav-dropdown button:hover {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #757575 !important;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+
+  &:hover {
     background: #f8f9fa;
+  }
 }
 
-.hover-bg-light:hover {
-    background: #f8f9fa !important;
-    border-radius: 6px;
+/* Angular Material Button specific styles */
+.mat-button, .mat-menu-item {
+  color: #757575 !important;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
-.text-primary {
-    color: #64B5F6 !important;
+.mat-button:hover, .mat-menu-item:hover {
+  background: #f8f9fa;
 }
 
-.border-bottom {
-    border-bottom: 1px solid #dee2e6 !important;
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 </style>
