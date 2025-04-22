@@ -1,20 +1,65 @@
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1.5fr;
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 2fr 1.5fr; /* Ajusta las columnas */
+  grid-template-rows: auto 1fr; /* La segunda fila se ajustará automáticamente */
   gap: 1.5rem;
   padding: 2rem;
   background-color: #f9f9f9;
   height: 100vh;
   position: relative;
 
+  /* Primer columna */
   .profile-section {
+    grid-column: 1; /* Primera columna */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+
+      .avatar-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+
+        .avatar {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #eee;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .inner-info-card {
+        width: 100%;
+        background: #f4f4f4;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+
+        h3 {
+          margin-bottom: 0.25rem;
+        }
+
+        p {
+          margin: 0;
+          color: #555;
+        }
+      }
+    }
   }
 
+  /* Columna central */
   .center-section {
+    grid-column: 2; /* Columna central */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -44,17 +89,24 @@
         }
       }
     }
-
-    .chart-card {
-      min-height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
-    }
   }
 
+  /* Chart card */
+  .chart-card {
+    grid-column: 1 / 3; /* Ocupa de la columna 1 a la 2 */
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    margin-top: 0;
+    padding: 1.5rem; /* Ajusta el padding según lo necesario */
+  }
+
+  /* Columna derecha: Tareas */
   .tasks-section {
+    grid-column: 3; /* Columna derecha */
+    grid-row: 1 / 3; /* Ocupa de la fila 1 a la 3 */
     display: flex;
     flex-direction: column;
 
@@ -79,22 +131,12 @@
     }
   }
 
+  /* Estilos generales para las tarjetas */
   .card {
     background: white;
     border-radius: 16px;
     padding: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-
-    &.profile-card {
-      text-align: center;
-
-      .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-bottom: 0.5rem;
-      }
-    }
 
     &.notifications-card,
     &.alerts-card {
@@ -120,6 +162,7 @@
     }
   }
 
+  /* Botón flotante */
   .chat-button {
     position: fixed;
     bottom: 24px;
@@ -143,14 +186,4 @@
       background-color: #1565c0;
     }
   }
-  
-  .chart-card {
-    grid-column: 1 / -1; // Ocupa todas las columnas
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #777;
-  }
-  
 }
