@@ -1,0 +1,14 @@
+<div class="help-container">
+  <h1>{{ helpData.title }}</h1>
+  
+  <div *ngFor="let category of helpData.categories" class="category-card">
+    <div class="card-header">{{ category.title }}</div>
+    
+    <div class="articles-container">
+      <div class="card-article" *ngFor="let article of category.articles">
+        <div class="card-article-title">{{ article.title }}</div>
+        <div class="card-article-content">{{ article.content }}</div>
+      </div>
+    </div>
+  </div>
+</div>

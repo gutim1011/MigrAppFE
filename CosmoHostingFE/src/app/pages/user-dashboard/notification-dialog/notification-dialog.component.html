@@ -1,0 +1,8 @@
+<div class="notifications-list">
+    <ul>
+      <li *ngFor="let n of notifications" (click)="openNotification(n)">
+        {{ n.title }}
+      </li>
+    </ul>
+  </div>
+  

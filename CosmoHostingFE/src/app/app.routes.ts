@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/user-dashboard', // Update this to user-dashboard
         pathMatch: 'full',
       },
       {
@@ -23,6 +23,11 @@ export const routes: Routes = [
           import('./pages/user-dashboard/user-dashboard.routes').then(
             (m) => m.UserDashboardRoutes
           ),
+      },
+      {
+        path: 'help',
+        loadComponent: () =>
+          import('./pages/help/help.component').then((m) => m.HelpComponent),
       },
       {
         path: 'ui-components',

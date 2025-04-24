@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5057/api'; // URL base de la API
+  private apiUrl = 'http://localhost:5199/api'; // URL base de la API
 
   constructor(private http: HttpClient) {}
 
@@ -24,5 +24,9 @@ export class AuthService {
 
   validateOtp(credentials: any): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/otp/validate`, credentials);
+  }
+
+  getHelpContent(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/userHelp`);
   }
 }

@@ -1,43 +1,49 @@
 <div class="app-topstrip">
-    <div class="topstrip-inner">
-      <!-- Logo -->
-      <img src="assets/images/logos/migrapplogo.png" alt="MigrApp Logo" class="logo" />
-    
-      <!-- Navigation -->
-      <div class="nav-links">
-        <!-- Inicio -->
-        <a mat-button class="nav-item" href="#">
-          <i-tabler name="home" class="icon-20"></i-tabler>
-          Inicio
-        </a>
-    
-        <!-- Mis Trámites -->
-        <button class="nav-item" mat-button [matMenuTriggerFor]="tramitesMenu">
-          <i-tabler name="file-text" class="icon-20"></i-tabler>
-          Mis Trámites
-          <i-tabler name="chevron-down" class="icon-16"></i-tabler>
-        </button>
-    
-        <!-- Idioma -->
-        <button class="nav-item" mat-button [matMenuTriggerFor]="idiomaMenu">
-          <i-tabler name="language" class="icon-20"></i-tabler>
-          Idioma
-          <i-tabler name="chevron-down" class="icon-16"></i-tabler>
-        </button>
-      </div>
-    
-      <!-- Avatar -->
-      <div class="avatar-wrapper">
-        <img src="assets/images/test.jpg" alt="User" class="avatar" />
-      </div>
-    </div>
-    
-    <!-- Mat menus stay outside topstrip-inner -->
-    <mat-menu #tramitesMenu="matMenu" class="nav-dropdown">...</mat-menu>
-    <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">...</mat-menu>
-  </div>  
+  <div class="topstrip-inner">
+    <!-- Logo -->
+    <img src="assets/images/logos/migrapplogo.png" alt="MigrApp Logo" class="logo" />
   
-   
+    <!-- Navigation -->
+    <div class="nav-links">
+      <!-- Inicio -->
+      <button class="nav-item" mat-button (click)="openDashboard()">
+        <i-tabler name="home" class="icon-20"></i-tabler>
+        Inicio
+      </button>
+  
+      <!-- Mis Trámites -->
+      <button class="nav-item" mat-button [matMenuTriggerFor]="tramitesMenu">
+        <i-tabler name="file-text" class="icon-20"></i-tabler>
+        Mis Trámites
+        <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+      </button>
+  
+      <!-- Idioma -->
+      <button class="nav-item" mat-button [matMenuTriggerFor]="idiomaMenu">
+        <i-tabler name="language" class="icon-20"></i-tabler>
+        Idioma
+        <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+      </button>
+
+      <!-- Help Button -->
+      <button class="nav-item" mat-button (click)="openHelp()">
+        <i-tabler name="help-circle" class="icon-20"></i-tabler>
+        Help
+      </button>
+    </div>
+  
+    <!-- Avatar -->
+    <div class="avatar-wrapper">
+      <img src="assets/images/test.jpg" alt="User" class="avatar" />
+    </div>
+  </div>
+  
+  <!-- Mat menus stay outside topstrip-inner -->
+  <mat-menu #tramitesMenu="matMenu" class="nav-dropdown">...</mat-menu>
+  <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">...</mat-menu>
+</div>
+
+
 
 <style>
 .app-topstrip {
