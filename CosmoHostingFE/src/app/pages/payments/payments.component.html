@@ -1,0 +1,29 @@
+<div class="payments-container">
+    <h1>Payment History</h1>
+  
+    <!-- Placeholder message when no payments are found -->
+    <div *ngIf="payments && payments.length === 0" class="no-payments">
+      <p>No payments have been made yet.</p>
+    </div>
+  
+    <!-- Display list of payments -->
+    <div *ngIf="payments && payments.length > 0" class="payments-history">
+      <table class="payments-table">
+        <thead>
+          <tr>
+            <th>Transaction Name</th>
+            <th>Cost</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of payments">
+            <td>{{ payment.name }}</td>
+            <td>{{ payment.cost | currency }}</td>
+            <td>{{ payment.date | date: 'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
