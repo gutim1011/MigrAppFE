@@ -19,6 +19,14 @@
               </mat-error>
             </mat-form-field>
           
+            <mat-label class="input-label">Prefijo</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" formControlName="phonePrefix" placeholder="+57" required />
+              <mat-error *ngIf="f.phone.invalid && f.phone.touched">
+                Ingrese un prefijo fijo, recuerde el +
+              </mat-error>
+            </mat-form-field>
+
             <mat-label class="input-label">Teléfono</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="tel" formControlName="phone" required />

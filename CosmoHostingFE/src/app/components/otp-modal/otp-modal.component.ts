@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
+import {MfaResponse} from 'src/app/models/mfa-response.model'
 
 @Component({
   selector: 'app-otp-modal',
@@ -35,32 +36,33 @@ export class OtpModalComponent {
       alert('Por favor, ingresa un código OTP válido.');
       return;
     }
-
-    const otpData = {
-        Email: this.data.Email, 
-        PasswordHash: this.data.PasswordHash, 
-        OtpCode: this.otpForm.value.otpCode,
+  
+    const mfaCode = this.otpForm.value.otpCode!;
+    const payload = {
+      email: this.data.email,
+      code: mfaCode,
+      rememberMe: this.data.rememberMe
     };
-
-    console.log(otpData);
-
-    this.authService.validateOtp(otpData).subscribe(
-      (isValid) => {
-        if (isValid) {
-          alert('OTP validado correctamente');
-          this.dialogRef.close(true);
+  
+    this.authService.verifyMfaCode(payload).subscribe({
+      next: (response: MfaResponse) => {
+        if (response.token) {
+          localStorage.setItem('authToken', response.token);
+          console.log('Verificación exitosa');
+          this.dialogRef.close(true); // <-- Éxito
         } else {
-          alert('Código OTP incorrecto');
+          alert('Código incorrecto');
         }
       },
-      (error) => {
-        alert('Error al validar OTP');
-        console.error(error);
+      error: (err) => {
+        console.error(err);
+        alert('Error al verificar código');
       }
-    );
+    });
   }
-
+  
+  
   close() {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 }
