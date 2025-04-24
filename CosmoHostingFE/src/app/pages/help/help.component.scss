@@ -1,0 +1,84 @@
+.help-container {
+  padding: 5rem;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.category-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.articles-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 1.5rem;
+  overflow-x: auto; /* Scroll horizontally if there are more than 3 cards */
+  padding-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card-article {
+  background-color: #ecf0f1;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-article-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.card-article-content {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* Make the carousel effect when there are more than 3 cards */
+.articles-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.articles-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.articles-container::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+}
+
+/* Optional: Add some padding for mobile views */
+@media (max-width: 768px) {
+  .articles-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 column on smaller screens */
+    gap: 1rem;
+  }
+
+  .card-article {
+    padding: 0.75rem;
+  }
+}
