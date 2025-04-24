@@ -1,6 +1,0 @@
-@CosmoHosting_HostAddress = http://localhost:5057
-
-GET {{CosmoHosting_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
