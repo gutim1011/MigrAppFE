@@ -1,42 +1,53 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# .gitignore para .NET + Angular
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# Archivos temporales y de usuario de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.dbmdl
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Binarios de compilación de .NET
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
 
-# IDEs and editors
+# Archivos generados por NuGet
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nuget.props
+*.nuget.targets
+*.nupkg
+
+# Archivos generados por Rider/ReSharper
 .idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+*.sln.iml
 
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+# Archivos de logs y cache
+*.log
+*.cache
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+# Archivos generados al ejecutar la app
+*.dll
+*.exe
+*.pdb
+*.tmp
+*.bak
+*.zip
 
-# System files
+# Archivos de configuración locales
+appsettings.Development.json
+appsettings.Local.json
+
+# Angular - Node Modules y dist
+node_modules/
+dist/
+.angular/
+.env
+
+# Sistema operativo
 .DS_Store
 Thumbs.db

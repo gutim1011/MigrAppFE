@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MfaResponse } from '../models/mfa-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/register`, userData);
+  register(data: any) {
+    return this.http.post(`${this.apiUrl}/auth/register`, data);
   }
-
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
+  
+  login(data: any) {
+    return this.http.post(`${this.apiUrl}/auth/login`, data);
   }
-
-  generateOtp(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/otp/generate`, credentials);
-  }
-
-  validateOtp(credentials: any): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/otp/validate`, credentials);
+  
+  verifyMfaCode(data: { email: string, code: string, rememberMe: boolean }): Observable<MfaResponse> {
+    return this.http.post<MfaResponse>(`${this.apiUrl}/auth/verify-mfa`, data);
   }
 
   getHelpContent(): Observable<any> {

@@ -11,6 +11,7 @@ import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.compo
 
 @Component({
   selector: 'app-side-login',
+  standalone: true,
   imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
   templateUrl: './side-login.component.html',
 })
@@ -27,6 +28,7 @@ export class AppSideLoginComponent {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    rememberMe: new FormControl(false),
   });
 
   get f() {
@@ -39,26 +41,29 @@ export class AppSideLoginComponent {
       return;
     }
 
-    const userData = {
-      Email: this.form.value.email,
-      PasswordHash: this.form.value.password,
+    const loginData = {
+      Email: this.form.value.email!,
+      Password: this.form.value.password!,
+      PreferredMfaMethod: 'email',
+      RememberMe: this.form.value.rememberMe!,
     };
 
-    this.authService.login(userData).subscribe(
-      () => {
-        this.authService.generateOtp(userData).subscribe(() => {
+    this.authService.login(loginData).subscribe(
+      (res: any) => {
+        if (res?.message === 'Código de verificación enviado') {
           const dialogRef = this.dialog.open(OtpModalComponent, {
             width: '400px',
-            data: userData,
+            data: { email: loginData.Email, rememberMe: loginData.RememberMe },
           });
 
-          dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-              alert('Ingresando al sistema');
-              this.router.navigate(['/dashboard']);
+          dialogRef.afterClosed().subscribe((success: boolean) => {
+            if (success) {
+              this.router.navigate(['/user-dashboard']);
             }
           });
-        });
+        } else {
+          alert('No se pudo enviar el código de verificación');
+        }
       },
       (error) => {
         alert('Error al iniciar sesión');
