@@ -29,11 +29,11 @@
         <!-- Notifications List -->
         <div class="notifications-list">
           <ul>
-            <li>Notification #1</li>
-            <li>Notification #2</li>
-            <li>Notification #3</li>
+            <li *ngFor="let note of notifications" (click)="openNotificationDialog(note)">
+              {{ note.title }}
+            </li>
           </ul>
-        </div>
+        </div>        
       </div>
 
       <div class="card alerts-card">
@@ -41,12 +41,12 @@
           <i class="fa-solid fa-circle-exclamation"></i>
           <h4>Alerts</h4>
         </div>
-
-        <div class="notifications-list">
+      
+        <div class="alerts-list">
           <ul>
-            <li>Alert #1</li>
-            <li>Alert #2</li>
-            <li>Alert #3</li>
+            <li *ngFor="let alert of alerts" (click)="openAlertDialog(alert)">
+              {{ alert.title }}
+            </li>
           </ul>
         </div>
       </div>
@@ -73,18 +73,6 @@
       <ul>
         <li *ngFor="let t of [1,2,3,4,5]">Task #{{t}}</li>
       </ul>
-
-      <div class="notifications-list">
-        <ul>
-          <li>Task #1</li>
-          <li>Task #2</li>
-          <li>Task #4</li>
-          <li>Task #5</li>
-          <li>Task #6</li>
-          <li>Task #7</li>
-          <li>Task #8</li>
-        </ul>
-      </div>
     </div>
   </div>
 

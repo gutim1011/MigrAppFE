@@ -153,6 +153,19 @@
         font-weight: bold;
       }
 
+      /* Notifications List - make it scrollable */
+      .notifications-list {
+        max-height: 243px;  /* Fixed height */
+        overflow-y: auto;  /* Enable scrolling */
+        padding-right: 0.5rem; /* Optional: space for scrollbar */
+      }
+
+      .alerts-list {
+        max-height: 243px; /* Adjust to match the height of the notifications card */
+        overflow-y: auto;
+        padding-right: 0.5rem; /* Optional: space for the scrollbar */
+      }
+
       ul {
         margin-top: 1rem;
         list-style: none;
