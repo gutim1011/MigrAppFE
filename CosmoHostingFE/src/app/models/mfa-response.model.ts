@@ -3,4 +3,5 @@ export interface MfaResponse {
   email: string;
   userType: string;
   deviceIsTrusted: boolean;
+  userId: number;
 }

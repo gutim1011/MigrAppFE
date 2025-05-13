@@ -46,8 +46,9 @@ export class OtpModalComponent {
   
     this.authService.verifyMfaCode(payload).subscribe({
       next: (response: MfaResponse) => {
-        if (response.token) {
+        if (response.token && response.userId) {
           localStorage.setItem('authToken', response.token);
+          localStorage.setItem('userId', response.userId.toString());
           console.log('Verificación exitosa');
           this.dialogRef.close(true); // <-- Éxito
         } else {
