@@ -8,11 +8,15 @@ import { MaterialModule } from 'src/app/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.component';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-side-login',
   standalone: true,
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule,CommonModule,],
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
@@ -22,7 +26,8 @@ export class AppSideLoginComponent {
     private settings: CoreService,
     private router: Router,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private tts: TextToSpeechService,
   ) {}
 
   form = new FormGroup({
@@ -33,6 +38,11 @@ export class AppSideLoginComponent {
 
   get f() {
     return this.form.controls;
+  }
+
+  leer(texto: string) {
+    console.log("leyenod",texto)
+    this.tts.speak(texto);
   }
 
   submit() {
@@ -50,7 +60,7 @@ export class AppSideLoginComponent {
 
     this.authService.login(loginData).subscribe(
       (res: any) => {
-        if (res?.message === 'Código de verificación enviado') {
+        if (res?.message === 'Código de verificaciï¿½n enviado') {
           const dialogRef = this.dialog.open(OtpModalComponent, {
             width: '400px',
             data: { email: loginData.Email, rememberMe: loginData.RememberMe },

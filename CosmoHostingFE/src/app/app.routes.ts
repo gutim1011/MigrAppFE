@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/user-dashboard',
+        redirectTo: '/auth/login', // Update this to user-dashboard
         pathMatch: 'full',
       },
       {
@@ -38,6 +38,12 @@ export const routes: Routes = [
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
       },
       {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/profile/profile.component').then(
+            (m) => m.CompleteProfileComponent
+          ),
+      },{
         path: 'payments',
         loadChildren: () =>
           import('./pages/payments/payments.routes').then((m) => m.PaymentsRoutes),

@@ -1,0 +1,59 @@
+<div class="container">
+    <!-- Panel izquierdo -->
+    <div class="left-panel">
+      <div class="avatar-section">
+        <img src="assets/images/test.jpg" alt="Avatar" class="avatar-img" />
+      </div>
+  
+      <div class="menu-buttons">
+        <button mat-button class="info-btn"><i class="fa fa-user"></i> Mi información</button>
+        <button mat-button class="docs-btn"><i class="fa fa-file"></i> Mis documentos</button>
+        <button mat-button class="pay-btn"><i class="fa fa-dollar-sign"></i> Mis pagos</button>
+      </div>
+    </div>
+  
+    <!-- Panel derecho -->
+    <div class="right-panel">
+      <mat-card>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Escribe tu nombre" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Escribe tu nombre" />
+            </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Prefijo</mat-label>
+            <input matInput formControlName="phonePrefix" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>País</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput type="date" formControlName="birthDate" />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  
