@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CommonModule } from '@angular/common';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 
 @Component({
   selector: 'app-side-register',
@@ -23,7 +24,8 @@ export class AppSideRegisterComponent {
     private settings: CoreService,
     private router: Router,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private tts: TextToSpeechService,
   ) {}
 
   form = new FormGroup({
@@ -36,6 +38,11 @@ export class AppSideRegisterComponent {
 
   get f() {
     return this.form.controls;
+  }
+
+  leer(texto: string) {
+    console.log("leyenod",texto)
+    this.tts.speak(texto);
   }
 
   submit() {

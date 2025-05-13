@@ -11,7 +11,12 @@
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
           <form [formGroup]="form" (ngSubmit)="submit()">
-            <mat-label class="input-label">Correo</mat-label>
+            <div class="d-flex align-items-center justify-between">
+              <mat-label class="input-label">Correo</mat-label>
+              <button mat-icon-button color="primary" type="button" (click)="leer('Correo electrónico')">
+                🔊
+              </button>
+            </div>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="email" formControlName="email" required />
               <mat-error *ngIf="f.email.invalid && f.email.touched">
@@ -19,7 +24,12 @@
               </mat-error>
             </mat-form-field>
           
-            <mat-label class="input-label">Contraseña</mat-label>
+            <div class="d-flex align-items-center justify-between">
+              <mat-label class="input-label">Contraseña</mat-label>
+              <button mat-icon-button color="primary" type="button" (click)="leer('Ingrese su contraseña')">
+                🔊
+              </button>
+            </div>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="password" formControlName="password" required />
               <mat-error *ngIf="f.password.invalid && f.password.touched">

@@ -26,4 +26,13 @@ export class AuthService {
   getHelpContent(): Observable<any> {
     return this.http.get(`${this.apiUrl}/userHelp`);
   }
+
+  getUserInfo(userId: number) {
+    return this.http.get<any>(`${this.apiUrl}/${userId}/information`);
+  }
+  
+  updateUser(userId: number, data: any) {
+    return this.http.put(`${this.apiUrl}/${userId}/update`, data);
+  }
+  
 }

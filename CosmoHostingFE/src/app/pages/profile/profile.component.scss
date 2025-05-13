@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    height: 100%;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  .left-panel {
+    flex: 1;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f9ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+  
+    .avatar-section {
+      margin-bottom: 1.5rem;
+  
+      .avatar-img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #1d65f1;
+      }
+    }
+  
+    .menu-buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+  
+      button {
+        width: 100%;
+        text-align: left;
+        font-weight: bold;
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+  
+      .info-btn {
+        background: #e5f0ff;
+      }
+  
+      .docs-btn {
+        background: #cfe7ff;
+      }
+  
+      .pay-btn {
+        background: #b2ddff;
+      }
+    }
+  }
+  
+  .right-panel {
+    flex: 2;
+  
+    mat-card {
+      padding: 2rem;
+    }
+  
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+  
+      .full-width {
+        width: 100%;
+      }
+    }
+  }
+  
