@@ -73,7 +73,7 @@ export class AppSideRegisterComponent {
         };
   
         this.authService.login(loginData).subscribe((res: any) => {
-          if (res?.message === 'Código de verificación enviado') {
+          if (res?.message === 'Código de verificaciï¿½n enviado') {
             const dialogRef = this.dialog.open(OtpModalComponent, {
               width: '500px',
               data: { email: userData.Email, rememberMe: true },
