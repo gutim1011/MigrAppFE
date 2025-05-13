@@ -20,9 +20,7 @@ export const routes: Routes = [
       {
         path: 'user-dashboard',
         loadChildren: () =>
-          import('./pages/user-dashboard/user-dashboard.routes').then(
-            (m) => m.UserDashboardRoutes
-          ),
+          import('./pages/user-dashboard/user-dashboard.routes').then((m) => m.UserDashboardRoutes),
       },
       {
         path: 'help',
@@ -32,9 +30,7 @@ export const routes: Routes = [
       {
         path: 'ui-components',
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
+          import('./pages/ui-components/ui-components.routes').then((m) => m.UiComponentsRoutes),
       },
       {
         path: 'extra',
@@ -47,7 +43,11 @@ export const routes: Routes = [
           import('./pages/profile/profile.component').then(
             (m) => m.CompleteProfileComponent
           ),
-      },
+      },{
+        path: 'payments',
+        loadChildren: () =>
+          import('./pages/payments/payments.routes').then((m) => m.PaymentsRoutes),
+      }      
     ],
   },
   {
