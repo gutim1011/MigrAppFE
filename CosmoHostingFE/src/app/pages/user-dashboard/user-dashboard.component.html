@@ -5,13 +5,17 @@
     <div class="card profile-card">
       <!-- Avatar -->
       <div class="avatar-wrapper">
-        <img src="assets/images/test.jpg" alt="User" class="avatar" />
+        <img
+          [src]="userImageUrl || 'assets/images/default-avatar.jpg'"
+          alt="User"
+          class="avatar"
+        />
       </div>
 
       <!-- Inner Info Card (Name + Description) -->
       <div class="inner-info-card">
-        <h3>Jhon Doe</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <h3>{{ userData?.fullName || '...' }}</h3>
+        <p>{{ userData?.email || 'No email available' }}</p>
       </div>
     </div>
   </div>
@@ -19,29 +23,27 @@
   <!-- Central Content: Notifications, Alerts, Progress -->
   <div class="center-section">
     <div class="top-row">
+      <!-- Notifications -->
       <div class="card notifications-card">
-        <!-- Card Header -->
         <div class="card-header">
           <i class="fa-solid fa-bell"></i>
           <h4>Notifications</h4>
         </div>
-        
-        <!-- Notifications List -->
         <div class="notifications-list">
           <ul>
             <li *ngFor="let note of notifications" (click)="openNotificationDialog(note)">
               {{ note.title }}
             </li>
           </ul>
-        </div>        
+        </div>
       </div>
 
+      <!-- Alerts -->
       <div class="card alerts-card">
         <div class="card-header">
           <i class="fa-solid fa-circle-exclamation"></i>
           <h4>Alerts</h4>
         </div>
-      
         <div class="alerts-list">
           <ul>
             <li *ngFor="let alert of alerts" (click)="openAlertDialog(alert)">
@@ -52,6 +54,7 @@
       </div>
     </div>
 
+    <!-- Progress Bar -->
     <div class="card progress-card">
       <span>Overall progress:</span>
       <div class="progress-bar">
@@ -60,7 +63,7 @@
     </div>
   </div>
 
-  <!-- Chart card: ¡fuera de center-section! -->
+  <!-- Chart card -->
   <div class="chart-card card">
     <p>*Chart goes here*</p>
   </div>
@@ -71,7 +74,7 @@
       <h4>Pending tasks</h4>
       <p>You have <strong>#</strong> pending tasks</p>
       <ul>
-        <li *ngFor="let t of [1,2,3,4,5]">Task #{{t}}</li>
+        <li *ngFor="let t of [1,2,3,4,5]">Task #{{ t }}</li>
       </ul>
     </div>
   </div>
