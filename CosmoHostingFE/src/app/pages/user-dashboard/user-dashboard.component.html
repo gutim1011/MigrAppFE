@@ -58,14 +58,14 @@
     <div class="card progress-card">
       <span>Overall progress:</span>
       <div class="progress-bar">
-        <div class="progress" [style.width.%]="70"></div>
+        <div class="progress" [style.width.%]="progressPercentage"></div>
       </div>
+      <p>{{ progressPercentage }}%</p>
     </div>
   </div>
 
   <!-- Chart card -->
   <div class="chart-card card">
-    <p>*Chart goes here*</p>
   </div>
 
   <!-- Right Side: Tasks -->
