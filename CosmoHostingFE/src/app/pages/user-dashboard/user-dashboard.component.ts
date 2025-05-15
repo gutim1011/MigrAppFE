@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';y
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   standalone: true,
@@ -18,12 +19,10 @@ import { AlertModalComponent } from './alert-modal.components';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
 })
-export class UserDashboardComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private authService: AuthService
-  ) {}
+export class UserDashboardComponent {
+  constructor(private dialog: MatDialog, private router: Router) {}
 
+  authService = inject(AuthService);
   userData: any = {};
   userImageUrl: string = 'assets/images/default.jpg';
   userId: number = 0;
@@ -61,6 +60,15 @@ export class UserDashboardComponent implements OnInit {
     });
   }
 
+  goToChat(): void {
+    this.router.navigate(['/live-chat']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login'])
+  }
+  
   openNotificationDialog(note: any) {
     this.dialog.open(NotificationModalComponent, { data: note });
   }

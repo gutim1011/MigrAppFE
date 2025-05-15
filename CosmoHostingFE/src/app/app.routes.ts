@@ -56,7 +56,14 @@ export const routes: Routes = [
           path: 'process-detail/:id',
           loadComponent: () =>
             import('./pages/legal-processes/legal-process-detail.page').then((m) => m.LegalProcessDetailPage),
-        }
+        },{
+        path: 'live-chat',
+        loadComponent: () =>
+          import('./components/live-chat/live-chat.component').then(
+            (m) => m.LiveChatComponent
+          ),
+      }
+
     ],
   },
   {
