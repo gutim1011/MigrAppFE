@@ -15,45 +15,53 @@
     <!-- Panel derecho -->
     <div class="right-panel">
       <mat-card>
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-container">
-            <mat-form-field appearance="fill">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Escribe tu nombre" />
-            </mat-form-field>
+        <div *ngIf="!hasInfo" class="no-info-msg">
+          <p>No has completado tu información aún. Por favor complétala.</p>
+        </div>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Apellido</mat-label>
-                <input matInput placeholder="Escribe tu nombre" />
-            </mat-form-field>
-  
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" placeholder="Escribe tu nombre" />
+          </mat-form-field>
+
           <mat-form-field appearance="fill">
             <mat-label>Apellido</mat-label>
-            <input matInput formControlName="lastName" />
+            <input matInput formControlName="lastName" placeholder="Escribe tu apellido" />
           </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
+
+          <mat-form-field appearance="fill">
             <mat-label>Prefijo</mat-label>
             <input matInput formControlName="phonePrefix" />
           </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
+
+          <mat-form-field appearance="fill">
             <mat-label>Teléfono</mat-label>
             <input matInput formControlName="phone" />
           </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
+
+          <mat-form-field appearance="fill">
             <mat-label>País</mat-label>
             <input matInput formControlName="country" />
           </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
+
+          <mat-form-field appearance="fill">
             <mat-label>Fecha de nacimiento</mat-label>
             <input matInput type="date" formControlName="birthDate" />
           </mat-form-field>
-  
-          <button mat-raised-button color="primary" type="submit">Guardar</button>
+
+          <div class="form-buttons">
+            <button *ngIf="!isEditMode" mat-stroked-button color="primary" type="button" (click)="enableEdit()">
+              Editar
+            </button>
+
+            <button *ngIf="isEditMode" mat-raised-button color="primary" type="submit">
+              Guardar
+            </button>
+          </div>
         </form>
       </mat-card>
+
     </div>
   </div>
   

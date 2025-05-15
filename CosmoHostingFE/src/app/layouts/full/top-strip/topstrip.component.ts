@@ -19,4 +19,12 @@ export class AppTopstripComponent {
   openDashboard(): void {
     this.router.navigate(['/user-dashboard']);
   }
+
+  goToProfile(): void {
+  this.router.navigate(['/profile']);
+  }
+
+  goToProcess(): void {
+  this.router.navigate(['/legal-process']);
+  }
 }
