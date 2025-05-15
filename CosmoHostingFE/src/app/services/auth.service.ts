@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MfaResponse } from '../models/mfa-response.model';
+import { User } from '../models/user';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -9,6 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5199/api'; // URL base de la API
+  private token = "authToken";
 
   constructor(private http: HttpClient) {}
 
@@ -43,5 +45,22 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/user/${userId}/profile`, { headers });
   }
+
+  get getAccessToken(): string | null {
+    return localStorage.getItem(this.token) || '';
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem(this.token)
+  }
   
+  get currentLoggedUser() : string | null{
+    const user = localStorage.getItem('userId') || '{}';
+    return user;
+  }
+
+  logout() {
+    localStorage.removeItem(this.token);
+    localStorage.removeItem('user');
+  }
 }

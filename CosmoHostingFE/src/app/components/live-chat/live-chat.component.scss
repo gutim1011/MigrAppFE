@@ -1,0 +1,29 @@
+/* Scroll personalizado */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Estilo de entrada de texto en foco */
+input:focus {
+  outline: none;
+}
+
+/* Transición suave */
+.transition {
+  transition: all 0.2s ease;
+}
+
+/* Bubble de mensajes propios y ajenos */
+.bg-blue-500 {
+  background-color: #3b82f6;
+}

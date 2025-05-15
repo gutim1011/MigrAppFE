@@ -47,7 +47,14 @@ export const routes: Routes = [
         path: 'payments',
         loadChildren: () =>
           import('./pages/payments/payments.routes').then((m) => m.PaymentsRoutes),
-      }      
+      },{
+        path: 'live-chat',
+        loadComponent: () =>
+          import('./components/live-chat/live-chat.component').then(
+            (m) => m.LiveChatComponent
+          ),
+      }
+      
     ],
   },
   {
