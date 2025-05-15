@@ -12,10 +12,9 @@
       </button>
   
       <!-- Mis Trámites -->
-      <button class="nav-item" mat-button [matMenuTriggerFor]="tramitesMenu">
+      <button class="nav-item" mat-button (click)="goToProcess()">
         <i-tabler name="file-text" class="icon-20"></i-tabler>
         Mis Trámites
-        <i-tabler name="chevron-down" class="icon-16"></i-tabler>
       </button>
   
       <!-- Idioma -->
@@ -33,7 +32,7 @@
     </div>
   
     <!-- Avatar -->
-    <div class="avatar-wrapper">
+    <div class="avatar-wrapper" (click)="goToProfile()" style="cursor: pointer;">
       <img src="assets/images/test.jpg" alt="User" class="avatar" />
     </div>
   </div>

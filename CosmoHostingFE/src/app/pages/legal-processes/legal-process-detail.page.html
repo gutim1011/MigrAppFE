@@ -1,0 +1,37 @@
+<mat-card class="process-card">
+  <h2 class="card-title">{{ process.type }}</h2>
+
+  <div class="process-details">
+    <p><strong>Estado:</strong> {{ process.status }}</p>
+    <p><strong>Estado de pago:</strong> {{ process.paymentStatus }}</p>
+    <p><strong>Costo:</strong> {{ process.cost }}</p>
+    <p><strong>Costo:</strong> {{ process.LegalProcessId }}</p>
+    <p><strong>Fecha de inicio:</strong> {{ process.startDate }}</p>
+    <p *ngIf="process.endDate"><strong>Fecha de finalización:</strong> {{ process.endDate }}</p>
+  </div>
+
+  <h3 class="procedures-title">Procedimientos</h3>
+
+  <div *ngFor="let procedure of process.procedures" class="procedure-item">
+    <div class="procedure-details">
+      <h4>{{ procedure.name }}</h4>
+      <p><strong>Estado:</strong> {{ procedure.status }}</p>
+      <p *ngIf="procedure.dueDate"><strong>Fecha límite:</strong> {{ procedure.dueDate }}</p>
+        <div *ngIf="procedure.documents.length > 0" class="documents">
+            <strong>Documentos:</strong>
+            <ul>
+                <li *ngFor="let doc of procedure.documents">
+                {{ doc.name }} - {{ doc.description }} -
+                <span *ngIf="doc.isUploaded">Subido</span>
+                <span *ngIf="!doc.isUploaded">Pendiente</span>
+
+                <div>
+                    <input type="file" (change)="onFileSelected($event, procedure.id, doc.id)" />
+                    <button mat-button color="primary" (click)="uploadFile(procedure.id, doc.id)">Subir archivo</button>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</mat-card>

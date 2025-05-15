@@ -37,7 +37,9 @@ export class AuthService {
 }
 
   updateUser(userId: number, data: any) {
-    return this.http.put(`${this.apiUrl}/user/${userId}/update`, data);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.apiUrl}/user/${userId}/update`, data, { headers });
   }
 
   getUserProfile(userId: number) {

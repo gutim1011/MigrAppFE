@@ -82,7 +82,7 @@ export class AppSideRegisterComponent {
             dialogRef.afterClosed().subscribe((result: boolean) => {
               if (result === true) {
                 alert('Registro y autenticación exitosa');
-                this.router.navigate(['/user-dashboard']);
+                this.router.navigate(['/profile']);
               } else {
                 alert('No se verificó el código OTP.');
               }

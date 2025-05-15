@@ -1,0 +1,38 @@
+.process-card {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin: 5rem;
+}
+
+.card-title {
+  margin-bottom: 16px;
+}
+
+.process-details p {
+  margin: 4px 0;
+}
+
+.procedures-title {
+  margin-top: 24px;
+  font-size: 1.2em;
+  border-top: 1px solid #ccc;
+  padding-top: 16px;
+}
+
+.procedure-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: #f9f9f9;
+}
+
+.procedure-details p {
+  margin: 4px 0;
+}
+
+.documents ul {
+  padding-left: 16px;
+  margin: 8px 0 0;
+}

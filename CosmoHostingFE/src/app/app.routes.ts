@@ -48,13 +48,22 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./pages/payments/payments.routes').then((m) => m.PaymentsRoutes),
       },{
+          path: 'legal-process',
+          loadComponent: () =>
+            import('./pages/legal-processes/legal-processes.page').then((m) => m.LegalProcessesPage),
+        },
+        {
+          path: 'process-detail/:id',
+          loadComponent: () =>
+            import('./pages/legal-processes/legal-process-detail.page').then((m) => m.LegalProcessDetailPage),
+        },{
         path: 'live-chat',
         loadComponent: () =>
           import('./components/live-chat/live-chat.component').then(
             (m) => m.LiveChatComponent
           ),
       }
-      
+
     ],
   },
   {
