@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5199/api'; // URL base de la API
+  private apiUrl = 'http://localhost:5199/api';
   private token = "authToken";
 
   constructor(private http: HttpClient) {}

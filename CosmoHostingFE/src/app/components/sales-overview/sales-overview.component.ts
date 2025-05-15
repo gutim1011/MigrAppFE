@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild ,inject} from '@angular/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import {
   ApexChart,
@@ -17,6 +17,8 @@ import {
   NgApexchartsModule,
 } from 'ng-apexcharts';
 import { MaterialModule } from 'src/app/material.module';
+import { LegalProcessService } from 'src/app/services/legal-process.service';
+
 
 export interface salesChart {
   series: ApexAxisChartSeries | any;
@@ -40,35 +42,36 @@ export interface salesChart {
 })
 export class AppSalesOverviewComponent {
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
+  
+  legalService = inject(LegalProcessService)
+  userId: number = 0;
 
   public salesChart!: Partial<salesChart> | any;
+
+  ngOnInit() {
+    const storedId = localStorage.getItem('userId');
+    if (storedId) {
+      this.userId = +storedId;
+      this.loadProcessesAndBuildChart();
+    } else {
+      console.warn('User ID not found in localStorage.');
+    }
+  }
 
   constructor() {
     this.salesChart = {
 
-      series: [
-        {
-          name: "Proceso 1  ",
-          data: [9, 5, 3, 7, 5, 10, 3],
-          color: 'var(--mat-sys-primary)',
-        },
-        {
-          name: "Proceso 2",
-          data: [6, 3, 9, 5, 4, 6, 4],
-          color: 'var(--mat-sys-secondary)',
-        },
-      ],
+      series: [],
       chart: {
-        fontFamily: "inherit",
-        type: "bar",
+        fontFamily: 'inherit',
+        type: 'bar',
         height: 330,
-        foreColor: "#adb0bb",
+        foreColor: '#adb0bb',
         offsetY: 10,
         offsetX: -15,
         toolbar: {
           show: false,
         },
-  
       },
       grid: {
         show: true,
@@ -92,8 +95,8 @@ export class AppSalesOverviewComponent {
         colors: ["transparent"],
       },
       xaxis: {
-        type: "category",
-        categories: ["Tramite 1", "Tramite 2", "Tramite 3", "Tramite 4", "Tramite 5", "Tramite 6", "Tramite 7"],
+        type: 'category',
+        categories: [],
         axisTicks: {
           show: false,
         },
@@ -109,7 +112,7 @@ export class AppSalesOverviewComponent {
       yaxis: {
         labels: {
           style: {
-            colors: "#a1aab2",
+            colors: '#a1aab2',
           },
         },
       },
@@ -136,5 +139,30 @@ export class AppSalesOverviewComponent {
         },
       ],
     };
+  }
+
+  loadProcessesAndBuildChart() {
+    this.legalService.getUserProcesses(this.userId).subscribe({
+      next: (processes: any[]) => {
+        this.updateChart(processes);
+      },
+      error: (error) => {
+        console.error('Failed to load processes:', error);
+      },
+    });
+  }
+
+  updateChart(processes: any[]) {
+    this.salesChart.xaxis.categories = processes.map(
+      (p) => `Proceso #${p.legalProcessId}`
+    );
+
+    this.salesChart.series = [
+      {
+        name: 'Progreso',
+        data: processes.map((p) => p.progress),
+        color: '#1B84FF',
+      },
+    ];
   }
 }

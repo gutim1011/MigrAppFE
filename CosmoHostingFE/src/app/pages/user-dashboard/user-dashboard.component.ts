@@ -1,11 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';y
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LegalProcessService } from '../../services/legal-process.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-overview.component'
+
 
 @Component({
   standalone: true,
@@ -14,7 +18,9 @@ import { AuthService } from 'src/app/services/auth.service';
     CommonModule,
     MatCardModule,
     MatDialogModule,
-    NotificationModalComponent
+    NotificationModalComponent,
+    MatProgressBarModule,
+    AppSalesOverviewComponent,
   ],
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
@@ -23,9 +29,14 @@ export class UserDashboardComponent {
   constructor(private dialog: MatDialog, private router: Router) {}
 
   authService = inject(AuthService);
+  legalService = inject(LegalProcessService)
   userData: any = {};
   userImageUrl: string = 'assets/images/default.jpg';
   userId: number = 0;
+  progressPercentage: number = 0;
+  chartLabels: string[] = [];
+  chartData: number[] = [];
+
 
   ngOnInit() {
     const storedId = localStorage.getItem('userId');
@@ -33,6 +44,7 @@ export class UserDashboardComponent {
       this.userId = +storedId;
       this.fetchUserData();
       this.fetchUserProfile();
+      this.fetchLegalProcesses();
     } else {
       console.warn('User ID not found in localStorage.');
     }
@@ -47,6 +59,33 @@ export class UserDashboardComponent {
         console.error('Failed to load user data:', err);
       }
     });
+  }
+
+  fetchLegalProcesses() {
+    this.legalService.getUserProcesses(this.userId).subscribe({
+    next: (processes) => {
+      this.calculateAverageProgress(processes);
+      this.prepareChartData(processes);
+    },
+    error: (err) => {
+      console.error('Error loading legal processes:', err);
+    }
+    });
+  }
+
+  calculateAverageProgress(processes: any[]) {
+    if (!processes.length) {
+      this.progressPercentage = 0;
+      return;
+    }
+
+    const totalProgress = processes.reduce((sum, proc) => sum + proc.progress, 0);
+    this.progressPercentage = Math.round(totalProgress / processes.length);
+  }
+
+  prepareChartData(processes: any[]) {
+    this.chartLabels = processes.map(p => `Process ${p.legalProcessId}`);
+    this.chartData = processes.map(p => p.progress);
   }
 
   fetchUserProfile() {
