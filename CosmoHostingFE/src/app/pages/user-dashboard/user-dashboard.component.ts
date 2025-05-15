@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   standalone: true,
@@ -18,8 +20,9 @@ import { AlertModalComponent } from './alert-modal.components';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
+  authService = inject(AuthService);
   notifications = [
     {title: 'Document Expired', content: 'Your passport document has expired. Please upload a new one.'},
     {title: 'Document Expired', content: 'Your passport document has expired. Please upload a new one.'},
@@ -51,5 +54,14 @@ export class UserDashboardComponent {
     this.dialog.open(AlertModalComponent, {
       data: alert,
     });
+  }
+
+  goToChat(): void {
+    this.router.navigate(['/live-chat']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login'])
   }
 }

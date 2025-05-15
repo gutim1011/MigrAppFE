@@ -77,8 +77,13 @@
   </div>
 
   <!-- Floating Chat Button -->
-  <button class="chat-button">
+  <button class="chat-button" (click)="goToChat()">
     <i class="fa-solid fa-headset"></i>
     Speak to an advisor
+  </button>
+
+  <button class="chat-button" (click)="logout()">
+    <i class="fa-solid fa-headset"></i>
+    logout
   </button>
 </div>
