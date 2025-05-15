@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MfaResponse } from '../models/mfa-response.model';
 import { User } from '../models/user';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,19 @@ export class AuthService {
   }
 
   getUserInfo(userId: number) {
-    return this.http.get<any>(`${this.apiUrl}/${userId}/information`);
-  }
-  
+  const token = localStorage.getItem('authToken');
+  const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+  return this.http.get<any>(`${this.apiUrl}/user/${userId}/information`, { headers });
+}
+
   updateUser(userId: number, data: any) {
-    return this.http.put(`${this.apiUrl}/${userId}/update`, data);
+    return this.http.put(`${this.apiUrl}/user/${userId}/update`, data);
+  }
+
+  getUserProfile(userId: number) {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}/profile`, { headers });
   }
 
   get getAccessToken(): string | null {
