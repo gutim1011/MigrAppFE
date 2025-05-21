@@ -1,141 +1,246 @@
-<!-- Panel de chat -->
-<div class="flex h-full">
-  <!-- Lista de contactos -->
-  <div class="w-1/4 bg-white border-r overflow-y-auto">
-    <div class="p-4 border-b">
-      <h2 class="text-xl font-bold">Conversaciones</h2>
+<!-- Panel de chat con Bootstrap 5 -->
+<div class="container-fluid h-100 pt-5">
+  <div class="row h-100">
+    <!-- Lista de contactos (visible solo para abogados) -->
+    <div class="col-md-3 col-lg-3 d-flex flex-column p-0 bg-light border-end" *ngIf="isLawyer">
+      <div class="d-flex align-items-center p-3 border-bottom bg-white shadow-sm">
+        <h4 class="mb-0 fw-bold text-primary">Conversaciones</h4>
+      </div>
+      
+      <!-- Lista de usuarios filtrados por rol -->
+      <div class="overflow-auto flex-grow-1">
+        @for(user of filteredContacts; track user.id) {
+          <div 
+            (click)="selectChat(user)" 
+            class="contact-item d-flex align-items-center p-3 border-bottom position-relative"
+            [class.active]="currentChat?.id === user.id"
+          >
+            <div class="position-relative me-3">
+              @if(user.imageUrl) {
+                <img [src]="user.imageUrl" alt="Avatar" class="avatar rounded-circle">
+              } @else {
+                <div class="avatar rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white">
+                  <span class="fs-5 fw-bold">
+                    {{(user.name || '').charAt(0).toUpperCase()}}
+                  </span>
+                </div>
+              }
+              <span class="position-absolute top-0 end-0 translate-middle p-1 rounded-circle" 
+                    [class.bg-success]="user.isOnline" 
+                    [class.bg-secondary]="!user.isOnline">
+                <span class="visually-hidden">Status</span>
+              </span>
+            </div>
+            <div class="flex-grow-1 overflow-hidden">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0 fw-medium text-truncate">
+                  {{user.name}} {{user.lastName}}
+                </p>
+                @if(unreadCounts[user.id]) {
+                  <span class="badge bg-primary rounded-pill ms-2">
+                    {{unreadCounts[user.id]}}
+                  </span>
+                }
+              </div>
+              <p class="text-muted small mb-0 text-truncate">
+                {{user.isTyping ? 'Escribiendo...' : (user.isOnline ? 'En línea' : 'Desconectado')}}
+              </p>
+            </div>
+          </div>
+        }
+        
+        @if(filteredContacts.length === 0) {
+          <div class="text-center p-4 text-muted">
+            <i class="bi bi-people-fill fs-3 mb-2"></i>
+            <p>No hay contactos disponibles</p>
+          </div>
+        }
+      </div>
     </div>
     
-    <!-- Lista de usuarios filtrados por rol -->
-    <div class="overflow-y-auto">
-      @for(user of filteredContacts; track user.id) {
-        <div 
-          (click)="selectChat(user)" 
-          class="flex items-center p-3 border-b hover:bg-gray-100 cursor-pointer"
-          [class.bg-blue-50]="currentChat?.id === user.id"
-        >
-          <div class="flex-shrink-0 mr-3">
-            @if(user.imageUrl) {
-              <img [src]="user.imageUrl" alt="Avatar" class="w-10 h-10 rounded-full">
-            } @else {
-              <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
-                <span class="text-lg font-bold text-gray-600">
-                  {{(user.name || '').charAt(0).toUpperCase()}}
-                </span>
-              </div>
-            }
-            <span class="absolute w-3 h-3 rounded-full" 
-                  [class.bg-green-500]="user.isOnline" 
-                  [class.bg-gray-400]="!user.isOnline"
-                  style="margin-left: -10px; margin-top: -10px;"></span>
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex justify-between items-center">
-              <p class="text-sm font-medium text-gray-900 truncate">
-                {{user.name}} {{user.lastName}}
-              </p>
-              @if(unreadCounts[user.id]) {
-                <span class="px-2 py-1 bg-blue-500 text-white rounded-full text-xs">
-                  {{unreadCounts[user.id]}}
-                </span>
+    <!-- Ventana de chat -->
+    <div class="col d-flex flex-column h-100 p-0 byy-light">
+      @if(currentChat) {
+        <!-- Cabecera del chat -->
+        <div class="p-3 border-bottom bg-white shadow-sm d-flex align-items-center">
+          <!-- Botón para volver al dashboard (solo para clientes) -->
+          <button *ngIf="!isLawyer" 
+                  class="btn btn-sm btn-light me-3" 
+                  (click)="goBackToDashboard()">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          
+          <div class="d-flex align-items-center">
+            <div class="position-relative me-3">
+              @if(currentChat.imageUrl) {
+                <img [src]="currentChat.imageUrl" alt="Avatar" class="avatar rounded-circle">
+              } @else {
+                <div class="avatar rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white">
+                  <span class="fs-5 fw-bold">
+                    {{(currentChat.name || '').charAt(0).toUpperCase()}}
+                  </span>
+                </div>
               }
+              <span class="position-absolute top-0 end-0 translate-middle p-1 rounded-circle" 
+                    [class.bg-success]="currentChat.isOnline" 
+                    [class.bg-secondary]="!currentChat.isOnline">
+              </span>
             </div>
-            <p class="text-xs text-gray-500 truncate">
-              {{user.isTyping ? 'Escribiendo...' : (user.isOnline ? 'En línea' : 'Desconectado')}}
-            </p>
+            <div>
+              <h5 class="mb-0 fw-bold">
+                {{currentChat.name | titlecase}} {{currentChat.lastName | titlecase}}
+              </h5>
+              <small class="text-muted">
+                {{currentChat.isTyping ? 'Escribiendo...' : (currentChat.isOnline ? 'En línea' : 'Desconectado')}}
+              </small>
+            </div>
           </div>
         </div>
-      }
-      
-      @if(filteredContacts.length === 0) {
-        <div class="p-4 text-center text-gray-500">
-          No hay contactos disponibles
+        
+        <!-- Área de mensajes -->
+        <div #messageContainer class="flex-grow-1 overflow-auto p-3 message-container" (scroll)="onScroll($event)">          
+          @if(isLoading) {
+            <div class="d-flex justify-content-center p-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          }
+          
+          @if(messages.length === 0 && !isLoading) {
+            <div class="text-center my-5 py-5">
+              <i class="bi bi-chat-dots fs-1 text-muted mb-3"></i>
+              <h5 class="text-muted">No hay mensajes</h5>
+              <p class="text-muted">¡Comienza la conversación!</p>
+            </div>
+          }
+          
+          @for(message of messages; track message.id) {
+            <div class="mb-3" [ngClass]="{'text-end': isOwnMessage(message)}">
+              <div 
+                class="d-inline-block px-3 py-2 rounded-3 shadow-sm message"
+                [ngClass]="{'bg-primary text-white own-message': isOwnMessage(message), 'bg-white other-message': !isOwnMessage(message)}"
+              >
+                <div>{{message.content}}</div>
+                <div 
+                  class="small mt-1 message-meta d-flex justify-content-between align-items-center"
+                  [ngClass]="{'text-light': isOwnMessage(message), 'text-muted': !isOwnMessage(message)}"
+                >
+                  <span>{{formatMessageTime(message.createdDate)}}</span>
+                  @if(isOwnMessage(message)) {
+                    <span class="ms-2">
+                      <i class="bi" [ngClass]="{'bi-check-all': message.isRead, 'bi-check': !message.isRead}"></i>
+                    </span>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+        
+        <!-- Área de entrada de texto -->
+        <div class="p-3 border-top bg-white">
+          <div class="input-group">
+            <input
+              #messageInput
+              type="text" 
+              [(ngModel)]="messageContent"
+              (input)="onTyping()"
+              placeholder="Escribe un mensaje..."
+              class="form-control border-end-0"
+              (keyup.enter)="sendMessage()"
+            >
+            <button 
+              (click)="sendMessage()"
+              [disabled]="!messageContent.trim()"
+              class="btn btn-primary px-4"
+              type="button"
+            >
+              <i class="bi bi-send-fill"></i> Enviar
+            </button>
+          </div>
+        </div>
+      } @else {
+        <!-- Seleccionar chat (para abogados) o cargando (para clientes) -->
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-4 text-center">
+          @if(isLoading) {
+            <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <h3 class="h4 fw-bold mb-2">Conectando con tu asesor...</h3>
+            <p class="text-muted">Por favor espera mientras te conectamos</p>
+          } @else {
+            @if(isLawyer) {
+              <div class="display-3 mb-4">💬</div>
+              <h3 class="h4 fw-bold mb-2">Selecciona un chat</h3>
+              <p class="text-muted">Elige un cliente para iniciar una conversación</p>
+            } @else {
+              <div class="display-3 mb-4">🔍</div>
+              <h3 class="h4 fw-bold mb-2">No hay asesor disponible</h3>
+              <p class="text-muted">No tienes un asesor asignado o no está disponible</p>
+              <button 
+                (click)="goBackToDashboard()" 
+                class="btn btn-primary mt-3">
+                <i class="bi bi-house-door me-2"></i>Volver al dashboard
+              </button>
+            }
+          }
         </div>
       }
     </div>
   </div>
-  
-  <!-- Ventana de chat -->
-  @if(currentChat) {
-    <div class="flex-1 flex flex-col h-full bg-gray-50">
-      <!-- Cabecera del chat -->
-      <div class="bg-white p-4 border-b flex items-center">
-        <div class="flex-1">
-          <h3 class="font-bold leading-normal">
-            {{currentChat.name | titlecase}} {{currentChat.lastName | titlecase}}
-          </h3>
-          <span class="text-sm text-gray-500">
-            {{currentChat.isTyping ? 'Escribiendo...' : (currentChat.isOnline ? 'En línea' : 'Desconectado')}}
-          </span>
-        </div>
-      </div>
-      
-      <!-- Área de mensajes -->
-      <div #messageContainer class="flex-1 overflow-y-auto p-4" (scroll)="onScroll($event)">
-        @if(isLoading) {
-          <div class="flex justify-center p-4">
-            <span class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></span>
-          </div>
-        }
-        
-        @if(messages.length === 0 && !isLoading) {
-          <div class="text-center text-gray-500 my-8">
-            No hay mensajes. ¡Comienza la conversación!
-          </div>
-        }
-        
-        @for(message of messages; track message.id) {
-          <div class="mb-4" [ngClass]="{'flex justify-end': isOwnMessage(message)}">
-            <div 
-              class="max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg"
-              [ngClass]="{'bg-blue-500 text-white': isOwnMessage(message), 'bg-white border': !isOwnMessage(message)}"
-            >
-              <div class="text-sm">{{message.content}}</div>
-              <div 
-                class="text-xs mt-1"
-                [ngClass]="{'text-blue-200': isOwnMessage(message), 'text-gray-500': !isOwnMessage(message)}"
-              >
-                {{formatMessageTime(message.createdDate)}}
-                @if(isOwnMessage(message)) {
-                  <span class="ml-1">
-                    {{message.isRead ? '✓✓' : '✓'}}
-                  </span>
-                }
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-      
-      <!-- Área de entrada de texto -->
-      <div class="bg-white p-4 border-t">
-        <div class="flex">
-          <input
-            #messageInput
-            type="text" 
-            [(ngModel)]="messageContent"
-            (input)="onTyping()"
-            placeholder="Escribe un mensaje..."
-            class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-          <button 
-            (click)="sendMessage()"
-            [disabled]="!messageContent.trim()"
-            class="ml-2 bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50"
-          >
-            Enviar
-          </button>
-        </div>
-      </div>
-    </div>
-  } @else {
-    <!-- Seleccionar chat -->
-    <div class="flex-1 flex items-center justify-center bg-gray-50">
-      <div class="text-center p-8">
-        <div class="text-6xl mb-4">💬</div>
-        <h3 class="text-xl font-bold mb-2">Selecciona un chat</h3>
-        <p class="text-gray-500">Elige un contacto para iniciar una conversación</p>
-      </div>
-    </div>
-  }
 </div>
+
+<style>
+  /* Estilos personalizados */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .avatar {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+  }
+  
+  .contact-item {
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .contact-item:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+  }
+  
+  .contact-item.active {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-left: 3px solid #0d6efd;
+  }
+  
+  .message-container {
+    background-color: #f8f9fa;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e9ecef' fill-opacity='0.5' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  
+  .own-message {
+    max-width: 75%;
+    border-radius: 18px 18px 4px 18px !important;
+  }
+  
+  .other-message {
+    max-width: 75%;
+    border-radius: 18px 18px 18px 4px !important;
+  }
+  
+  .message-meta {
+    font-size: 0.75rem;
+  }
+  
+  /* Asegurarse de cargar los iconos de Bootstrap */
+  @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css");
+</style>
+
+<!-- Asegúrate de incluir los estilos y scripts de Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

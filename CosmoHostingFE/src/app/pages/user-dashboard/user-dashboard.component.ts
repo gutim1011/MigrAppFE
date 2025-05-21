@@ -6,6 +6,7 @@ import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatService } from 'src/app/services/chat.service';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AppSalesOverviewComponent } from '../../components/sales-overview/sales-overview.component';
@@ -31,6 +32,10 @@ export class UserDashboardComponent implements OnInit {
   constructor(private dialog: MatDialog, private router: Router) {}
 
   authService = inject(AuthService);
+
+  legalService = inject(LegalProcessService);
+
+  chatService = inject(ChatService);
   legalService = inject(LegalProcessService);
 
   userData: any = {};
@@ -154,11 +159,23 @@ export class UserDashboardComponent implements OnInit {
   }
 
 
-  goToChat(): void {
-    this.router.navigate(['/live-chat']);
+  async goToChat(): Promise<void> {
+    try {
+      await this.chatService.ensureConnection();
+      
+      const result = await this.chatService.goToClientChat();
+      
+      if (!result) {
+        alert('No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.');
+      }
+    } catch (error) {
+      console.error('Error al acceder al chat:', error);
+      alert('Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.');
+    }
   }
 
-  logout() {
+  logout(): void {
+    this.chatService.disconnect();
     this.authService.logout();
     this.router.navigate(['/authentication/login']);
   }
