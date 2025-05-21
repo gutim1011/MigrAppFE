@@ -6,15 +6,15 @@
   </div>
 
   <div *ngIf="processes.length > 0">
-    <mat-list>
+    <mat-list class="processes-list">
       <mat-list-item *ngFor="let process of processes" class="process-item">
         <div class="item-content">
           <div>
-            <h3>{{ process.title || 'Proceso sin título' }}</h3>
+            <h3>{{ process.type || 'Proceso sin título' }}</h3>
             <p>Estado: {{ process.status || 'Desconocido' }}</p>
           </div>
           <div>
-            <button mat-raised-button color="primary" (click)="viewDetails(process.legalProcessId); $event.stopPropagation()">
+            <button class="button-details" mat-raised-button color="primary" (click)="viewDetails(process.legalProcessId); $event.stopPropagation()">
               Ver más
             </button>
           </div>

@@ -60,7 +60,7 @@ export const routes: Routes = [
         path: 'live-chat',
         loadComponent: () =>
           import('./components/live-chat/live-chat.component').then(
-            (m) => m.LiveChatComponent
+            (m) => m.ChatComponent
           ),
       }
 

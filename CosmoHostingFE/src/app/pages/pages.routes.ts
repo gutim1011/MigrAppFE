@@ -19,7 +19,7 @@ export const PagesRoutes: Routes = [
 */
 
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
-import { LiveChatComponent } from '../components/live-chat/live-chat.component';
+import { ChatComponent } from '../components/live-chat/live-chat.component';
 
 export const PagesRoutes: Routes = [
   {
@@ -27,5 +27,5 @@ export const PagesRoutes: Routes = [
     component: UserDashboardComponent
   },
   { path: 'live-chat', 
-    component: LiveChatComponent }
+    component: ChatComponent }
 ];

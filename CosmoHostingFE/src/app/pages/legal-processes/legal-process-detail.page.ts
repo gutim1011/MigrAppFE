@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 
 // IMPORTA ESTOS MÓDULOS DE ANGULAR MATERIAL 👇
 import { MatCardModule } from '@angular/material/card';
@@ -14,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
     MatCardModule,
     MatListModule,
     MatButtonModule
