@@ -72,7 +72,7 @@ export const routes: Routes = [
         data: { breadcrumb: 'Live Chat' }, // 🧩
         loadComponent: () =>
           import('./components/live-chat/live-chat.component').then(
-            (m) => m.LiveChatComponent
+            (m) => m.ChatComponent
           ),
       }
     ],

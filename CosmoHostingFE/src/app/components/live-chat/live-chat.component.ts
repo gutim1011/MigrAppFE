@@ -1,188 +1,142 @@
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ChatService } from 'src/app/services/chat.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from 'src/app/models/user';
+import { CommonModule, TitleCasePipe } from '@angular/common';
+import { ChatService } from 'src/app/services/chat.service';
 import { Message } from 'src/app/models/message';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-live-chat',
-  standalone: true,
-  imports: [CommonModule, TitleCasePipe, DatePipe, FormsModule],
+  selector: 'app-chat',
+  imports: [CommonModule, TitleCasePipe, FormsModule],
   templateUrl: './live-chat.component.html',
   styleUrls: ['./live-chat.component.scss']
 })
-export class LiveChatComponent implements OnInit, OnDestroy {
-  chatService = inject(ChatService);
-  authService = inject(AuthService);
+export class ChatComponent implements OnInit, OnDestroy {
+  private authService = inject(AuthService);
+  private chatService = inject(ChatService);
+  private router = inject(Router);
   
+  @ViewChild('messageContainer') messageContainer!: ElementRef;
+  @ViewChild('messageInput') messageInput!: ElementRef;
+
   messageContent: string = '';
-  currentUser: any;
-  currentUserId: number = 0;
-  userRole: string = '';
-  
-  contacts: User[] = [];
-  unreadCounts: {[userId: number]: number} = {};
-  
-  private subscriptions: Subscription[] = [];
-  
-  @ViewChild('messageContainer') messageContainer?: ElementRef;
-  @ViewChild('messageInput') messageInput?: ElementRef;
+  isLoading: boolean = false;
+  currentPage: number = 1;
+  unreadCounts: { [userId: number]: number } = {};
+  private unreadSubscription?: Subscription;
 
-  ngOnInit(): void {
-    const token = this.authService.getAccessToken;
-    const userId = this.authService.currentLoggedUser;
-
-    if (userId) {
-      this.currentUserId = parseInt(userId);
-    }
-
-    // Obtener información del usuario actual
-    this.authService.getUserInfo(this.currentUserId).subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.userRole = user.role;
-        console.log('👤 Usuario cargado:', user);
-      },
-      error: (err) => console.error('Error al cargar información del usuario:', err)
-    });
-
-    console.log("🔐 Iniciando conexión con token:", !!token);
-    console.log("👤 Usuario logueado ID:", userId);
-
-    // Iniciar conexión con SignalR
-    this.chatService.startConnection();
-    
-    // Suscribirse a los mensajes no leídos
-    const unreadSub = this.chatService.unreadMessages$.subscribe(counts => {
-      this.unreadCounts = counts;
-    });
-    this.subscriptions.push(unreadSub);
-  }
-
-  ngOnDestroy(): void {
-    // Limpiar suscripciones para evitar fugas de memoria
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.chatService.disconnect();
+  get currentChat(): User | null {
+    return this.chatService.currentOpenedChat();
   }
 
   get messages(): Message[] {
     return this.chatService.messages();
   }
 
-  get onlineUsers(): User[] {
+  get filteredContacts(): User[] {
     return this.chatService.onlineUsers();
   }
 
-  get currentChat(): User | null {
-    return this.chatService.currentOpenedChat();
+  get isLawyer(): boolean {
+    return this.chatService.isLawyer();
   }
 
-  get isLoading(): boolean {
-    return this.chatService.loading();
-  }
+  constructor() { }
 
-  // Filtrar contactos según el rol del usuario
-  get filteredContacts(): User[] {
-    if (!this.userRole) return this.onlineUsers;
+  ngOnInit(): void {
+    this.isLoading = this.chatService.loading();
     
-    // Si es inmigrante, solo mostrar asesores
-    if (this.userRole === 'immigrant') {
-      return this.onlineUsers.filter(user => user.role === 'advisor');
+    this.unreadSubscription = this.chatService.unreadMessages$.subscribe(counts => {
+      this.unreadCounts = counts;
+    });
+
+    // Si es un cliente y solo hay un contacto (el abogado asignado), seleccionar automáticamente
+    if (!this.isLawyer && this.filteredContacts.length === 1) {
+      setTimeout(() => {
+        this.selectChat(this.filteredContacts[0]);
+      }, 100);
     }
-    
-    // Si es asesor, solo mostrar inmigrantes
-    if (this.userRole === 'advisor') {
-      return this.onlineUsers.filter(user => user.role === 'immigrant');
-    }
-    
-    return this.onlineUsers;
   }
 
-  // Verificar si un mensaje es del usuario actual
-  isOwnMessage(message: Message): boolean {
-    return message.senderId === this.currentUserId;
+  ngOnDestroy(): void {
+    this.unreadSubscription?.unsubscribe();
   }
 
-  // Seleccionar un chat
   selectChat(user: User): void {
     this.chatService.openChat(user);
-    setTimeout(() => this.scrollToBottom(), 100);
-    
-    // Enfocar en el campo de texto
     setTimeout(() => {
-      this.messageInput?.nativeElement.focus();
-    }, 200);
+      this.scrollToBottom();
+      this.focusMessageInput();
+    }, 100);
   }
 
-  // Enviar un mensaje
   sendMessage(): void {
-    if (!this.messageContent.trim() || !this.currentChat) return;
+    if (!this.currentChat || !this.messageContent.trim()) return;
     
-    this.chatService.sendMessage(this.currentChat.id, this.messageContent.trim())
-      ?.then(() => {
-        this.messageContent = '';
-        setTimeout(() => this.scrollToBottom(), 100);
-      });
+    this.chatService.sendMessage(this.currentChat.id, this.messageContent.trim())!
+    .then(() => {
+      this.messageContent = '';
+      setTimeout(() => this.scrollToBottom(), 100);
+    });
+
   }
 
-  // Notificar que el usuario está escribiendo
   onTyping(): void {
-    if (this.currentChat) {
-      this.chatService.notifyTyping(this.currentChat.id);
-    }
-  }
-
-  // Desplazarse al último mensaje
-  scrollToBottom(): void {
-    if (this.messageContainer) {
-      this.messageContainer.nativeElement.scrollTop = 
-        this.messageContainer.nativeElement.scrollHeight;
-    }
-  }
-
-  // Manejar la tecla Enter para enviar mensajes
-  @HostListener('keydown.enter', ['$event'])
-  onEnterPress(event: KeyboardEvent): void {
-    if (!event.shiftKey) {
-      event.preventDefault();
-      this.sendMessage();
-    }
-  }
-
-  // Cargar más mensajes (paginación)
-  loadMoreMessages(): void {
     if (!this.currentChat) return;
-    
-    const nextPage = Math.ceil(this.messages.length / 10) + 1;
-    this.chatService.loadMessages(this.currentChat.id, nextPage);
+    this.chatService.notifyTyping(this.currentChat.id);
   }
 
-  // Formatear la fecha del mensaje
-  formatMessageTime(date: string): string {
+  isOwnMessage(message: Message): boolean {
+    const currentUserId = Number(this.authService.currentLoggedUser);
+    return message.senderId === currentUserId;
+  }
+
+  formatMessageTime(date: string | Date): string {
+    if (!date) return '';
     const messageDate = new Date(date);
-    const today = new Date();
-    
-    // Si es hoy, mostrar solo la hora
-    if (messageDate.toDateString() === today.toDateString()) {
-      return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    
-    // Si es este año, mostrar día y mes
-    if (messageDate.getFullYear() === today.getFullYear()) {
-      return messageDate.toLocaleDateString([], { day: '2-digit', month: 'short' });
-    }
-    
-    // Si es otro año, mostrar día, mes y año
-    return messageDate.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
+    return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   onScroll(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (target && target.scrollTop === 0) {
+    const element = event.target as HTMLElement;
+    // Si el scroll está cerca del tope y no estamos cargando, cargar más mensajes
+    if (element.scrollTop < 50 && !this.isLoading && this.messages.length > 0) {
       this.loadMoreMessages();
     }
+  }
+
+  loadMoreMessages(): void {
+    if (!this.currentChat) return;
+    
+    this.currentPage++;
+    const scrollHeight = this.messageContainer.nativeElement.scrollHeight;
+    
+    this.isLoading = true;
+    this.chatService.loadMessages(this.currentChat.id, this.currentPage);
+    
+    // Mantener la posición del scroll al cargar más mensajes
+    setTimeout(() => {
+      const newScrollHeight = this.messageContainer.nativeElement.scrollHeight;
+      this.messageContainer.nativeElement.scrollTop = newScrollHeight - scrollHeight;
+    }, 500);
+  }
+
+  scrollToBottom(): void {
+    if (this.messageContainer) {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    }
+  }
+
+  focusMessageInput(): void {
+    if (this.messageInput) {
+      this.messageInput.nativeElement.focus();
+    }
+  }
+
+  goBackToDashboard(): void {
+    this.router.navigate(['/user-dashboard']);
   }
 }
