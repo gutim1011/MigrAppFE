@@ -1,0 +1,17 @@
+{
+  "DASHBOARD": {
+    "NOTIFICATIONS": "Notificaciones",
+    "ALERTS": "Alertas",
+    "OVERALL_PROGRESS": "Progreso general:",
+    "CHART_PLACEHOLDER": "*Aquí va el gráfico*",
+    "PENDING_TASKS": "Tareas pendientes",
+    "TASK_COUNT": "Tienes {{count}} tareas pendientes",
+    "TASK_ITEM": "Tarea #{{number}}",
+    "SPEAK_TO_ADVISOR": "Habla con un asesor",
+    "NO_EMAIL": "Correo no disponible",
+    "NOTIFICATION_TITLE": "Documento vencido",
+    "NOTIFICATION_CONTENT": "Tu pasaporte ha vencido. Por favor, sube uno nuevo.",
+    "ALERT_TITLE": "Alerta importante",
+    "ALERT_CONTENT": "Necesitas actualizar tu información."
+  }
+}
