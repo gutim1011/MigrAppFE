@@ -9,13 +9,19 @@
     <!-- Vertical Sidebar -->
     <!-- ============================================================== -->
     
-
     <!-- ============================================================== -->
     <!-- Main Content -->
     <!-- ============================================================== -->
     <mat-sidenav-content class="contentWrapper" #content>
 
       <main class="pageWrapper maxWidth">
+
+        
+        <!-- ✅ Breadcrumbs -->
+        <div class="breadcrumb-container" style="margin-top: 56px; margin-bottom: 16px;">
+          <app-breadcrumb></app-breadcrumb>
+        </div>
+
         <!-- ============================================================== -->
         <!-- Outlet -->
         <!-- ============================================================== -->
@@ -23,10 +29,9 @@
       </main>
 
       <div class="p-16 p-t-8 p-b-30 text-center">
-        Design & Developed by Esteban Giraldo- Mariana Gutierrez-Ana Sofia Rodriguez-Juan Diego lopez
+        Design & Developed by Esteban Giraldo - Mariana Gutierrez - Ana Sofia Rodriguez - Juan Diego Lopez
       </div>
 
     </mat-sidenav-content>
-
   </mat-sidenav-container>
 </div>
