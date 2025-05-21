@@ -2,10 +2,11 @@
 <mat-dialog-content>
   <p>Se ha enviado un código de verificación a tu correo electrónico.</p>
   <form [formGroup]="otpForm">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Código OTP</mat-label>
-      <input matInput type="text" formControlName="otpCode" />
-    </mat-form-field>
+    <mat-label class="input-label">Código de verificación</mat-label>
+
+    <mat-form-field appearance="outline" class="w-100" style="min-width: 250px;">
+        <input matInput type="text" formControlName="otpCode" />
+      </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

@@ -20,33 +20,33 @@
         </div>
 
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-container">
+          <mat-label>Nombre</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
             <input matInput formControlName="name" placeholder="Escribe tu nombre" />
           </mat-form-field>
 
+          <mat-label>Apellido</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>Apellido</mat-label>
             <input matInput formControlName="lastName" placeholder="Escribe tu apellido" />
           </mat-form-field>
 
+          <mat-label>Prefijo</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>Prefijo</mat-label>
             <input matInput formControlName="phonePrefix" />
           </mat-form-field>
 
+          <mat-label>Teléfono</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>Teléfono</mat-label>
             <input matInput formControlName="phone" />
           </mat-form-field>
 
+          <mat-label>País</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>País</mat-label>
             <input matInput formControlName="country" />
           </mat-form-field>
 
+          <mat-label>Fecha de nacimiento</mat-label>
           <mat-form-field appearance="fill">
-            <mat-label>Fecha de nacimiento</mat-label>
             <input matInput type="date" formControlName="birthDate" />
           </mat-form-field>
 
