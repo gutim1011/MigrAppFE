@@ -33,7 +33,7 @@
   
     <!-- Avatar -->
     <div class="avatar-wrapper" (click)="goToProfile()" style="cursor: pointer;">
-      <img src="assets/images/test.jpg" alt="User" class="avatar" />
+      <img [src]="userImageUrl || 'assets/images/default-avatar.jpg'" alt="User" class="avatar" />
     </div>
   </div>
   

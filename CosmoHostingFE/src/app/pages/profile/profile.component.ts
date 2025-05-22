@@ -5,7 +5,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/services/auth.service';
-
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -39,12 +38,17 @@ export class CompleteProfileComponent {
   hasInfo = false;
   userId: number = 0;
 
+  userImageUrl: string = 'assets/images/default-avatar.jpg';
+
   ngOnInit() {
     const storedId = localStorage.getItem('userId');
     if (storedId) {
-      this.userId = +storedId;}
+      this.userId = +storedId;
+    }
 
     if (!this.userId) return;
+
+    this.fetchUserProfile(); // Carga la foto de perfil
 
     this.userService.getUserInfo(this.userId).subscribe({
       next: (data) => {
@@ -62,7 +66,18 @@ export class CompleteProfileComponent {
       },
       error: () => {
         this.hasInfo = false;
-        this.profileForm.disable(); // Deshabilitar hasta que presione editar
+        this.profileForm.disable();
+      }
+    });
+  }
+
+  fetchUserProfile() {
+    this.userService.getUserProfile(this.userId).subscribe({
+      next: (data: any) => {
+        this.userImageUrl = data.image || this.userImageUrl;
+      },
+      error: (err: any) => {
+        console.error('Error loading profile image:', err);
       }
     });
   }
@@ -77,7 +92,9 @@ export class CompleteProfileComponent {
 
     const storedId = localStorage.getItem('userId');
     if (storedId) {
-      this.userId = +storedId;}
+      this.userId = +storedId;
+    }
+
     const formData = this.profileForm.value;
 
     this.userService.updateUser(this.userId, formData).subscribe({
