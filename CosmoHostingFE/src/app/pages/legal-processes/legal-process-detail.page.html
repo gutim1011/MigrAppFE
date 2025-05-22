@@ -2,32 +2,31 @@
   <h2 class="card-title">{{ process.type }}</h2>
 
   <div class="process-details">
-    <p><strong>Estado:</strong> {{ process.status }}</p>
-    <p><strong>Estado de pago:</strong> {{ process.paymentStatus }}</p>
-    <p><strong>Costo:</strong> {{ process.cost }}</p>
-    <p><strong>Costo:</strong> {{ process.LegalProcessId }}</p>
-    <p><strong>Fecha de inicio:</strong> {{ process.startDate }}</p>
-    <p *ngIf="process.endDate"><strong>Fecha de finalización:</strong> {{ process.endDate }}</p>
+    <p><strong>{{ 'PROCESS_CARD.STATUS' | translate }}:</strong> {{ process.status }}</p>
+    <p><strong>{{ 'PROCESS_CARD.PAYMENT_STATUS' | translate }}:</strong> {{ process.paymentStatus }}</p>
+    <p><strong>{{ 'PROCESS_CARD.COST' | translate }}:</strong> {{ process.cost }}</p>
+    <p><strong>{{ 'PROCESS_CARD.START_DATE' | translate }}:</strong> {{ process.startDate }}</p>
+    <p *ngIf="process.endDate"><strong>{{ 'PROCESS_CARD.END_DATE' | translate }}:</strong> {{ process.endDate }}</p>
   </div>
 
-  <h3 class="procedures-title">Procedimientos</h3>
+  <h3 class="procedures-title">{{ 'PROCESS_CARD.PROCEDURES_TITLE' | translate }}</h3>
 
   <div *ngFor="let procedure of process.procedures" class="procedure-item">
     <div class="procedure-details">
       <h4>{{ procedure.name }}</h4>
-      <p><strong>Estado:</strong> {{ procedure.status }}</p>
-      <p *ngIf="procedure.dueDate"><strong>Fecha límite:</strong> {{ procedure.dueDate }}</p>
+      <p><strong>{{ 'PROCESS_CARD.PROCEDURE_STATUS' | translate }}:</strong> {{ procedure.status }}</p>
+      <p *ngIf="procedure.dueDate"><strong>{{ 'PROCESS_CARD.DUE_DATE' | translate }}:</strong> {{ procedure.dueDate }}</p>
         <div *ngIf="procedure.documents.length > 0" class="documents">
-            <strong>Documentos:</strong>
+            <strong>{{ 'PROCESS_CARD.DOCUMENTS' | translate }}:</strong>
             <ul>
                 <li *ngFor="let doc of procedure.documents">
                 {{ doc.name }} - {{ doc.description }} -
-                <span *ngIf="doc.isUploaded">Subido</span>
-                <span *ngIf="!doc.isUploaded">Pendiente</span>
+                <span *ngIf="doc.isUploaded">{{ 'PROCESS_CARD.UPLOADED' | translate }}</span>
+                <span *ngIf="!doc.isUploaded">{{ 'PROCESS_CARD.PENDING' | translate }}</span>
 
                 <div>
                     <input type="file" (change)="onFileSelected($event, procedure.id, doc.id)" />
-                    <button mat-button color="primary" (click)="uploadFile(procedure.id, doc.id)">Subir archivo</button>
+                    <button mat-button color="primary" (click)="uploadFile(procedure.id, doc.id)">{{ 'PROCESS_CARD.UPLOAD_BUTTON' | translate }}</button>
                 </div>
                 </li>
             </ul>

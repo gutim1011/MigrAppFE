@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { CommonModule } from '@angular/common';
 
-// Módulos Angular Material
+// Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-
-import { ToastrService } from 'ngx-toastr'; // ✅ Importar Toastr
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-legal-process-detail',
@@ -17,7 +17,8 @@ import { ToastrService } from 'ngx-toastr'; // ✅ Importar Toastr
     CommonModule,
     MatCardModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './legal-process-detail.page.html',
   styleUrls: ['./legal-process-detail.page.scss'],
@@ -29,7 +30,8 @@ export class LegalProcessDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private legalProcessService: LegalProcessService,
-    private toastr: ToastrService // ✅ Inyectar Toastr
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -42,7 +44,10 @@ export class LegalProcessDetailPage implements OnInit {
       next: (data) => this.process = data,
       error: (err) => {
         console.error('Error loading process:', err);
-        this.toastr.error('No se pudo cargar el proceso legal.', 'Error');
+        this.toastr.error(
+          this.translate.instant('PROCESS_DETAIL.LOAD_ERROR'),
+          this.translate.instant('PROCESS_DETAIL.ERROR')
+        );
       }
     });
   }
@@ -60,7 +65,10 @@ export class LegalProcessDetailPage implements OnInit {
     const file = this.selectedFiles[key];
 
     if (!file) {
-      this.toastr.warning('Por favor selecciona un archivo primero.', 'Advertencia');
+      this.toastr.warning(
+        this.translate.instant('PROCESS_DETAIL.NO_FILE_SELECTED'),
+        this.translate.instant('PROCESS_DETAIL.WARNING')
+      );
       return;
     }
 
@@ -69,12 +77,17 @@ export class LegalProcessDetailPage implements OnInit {
 
     this.legalProcessService.uploadDocument(procedureId, documentId, formData).subscribe({
       next: () => {
-        this.toastr.success('Archivo subido correctamente.', 'Éxito');
-        // Aquí puedes actualizar el estado visual si lo deseas
+        this.toastr.success(
+          this.translate.instant('PROCESS_DETAIL.UPLOAD_SUCCESS'),
+          this.translate.instant('PROCESS_DETAIL.SUCCESS')
+        );
       },
       error: (err) => {
         console.error(err);
-        this.toastr.error('Error al subir el archivo.', 'Error');
+        this.toastr.error(
+          this.translate.instant('PROCESS_DETAIL.UPLOAD_ERROR'),
+          this.translate.instant('PROCESS_DETAIL.ERROR')
+        );
       }
     });
   }

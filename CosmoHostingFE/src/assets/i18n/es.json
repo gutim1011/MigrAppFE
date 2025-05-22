@@ -1,17 +1,174 @@
 {
+  "LOGIN": {
+  "TITLE": "Inicia Sesión",
+  "EMAIL": "Correo",
+  "INVALID_EMAIL": "Ingrese un correo válido",
+  "PASSWORD": "Contraseña",
+  "INVALID_PASSWORD": "La contraseña debe tener al menos 6 caracteres",
+  "REMEMBER_ME": "Recuérdame",
+  "LOGIN_BUTTON": "Iniciar Sesión",
+  "NO_ACCOUNT": "¿Aún no tienes cuenta?",
+  "REGISTER": "Regístrate",
+  "INVALID_FORM": "Por favor, completa todos los campos correctamente.",
+  "WARNING": "Advertencia",
+  "SUCCESS_MESSAGE": "Inicio de sesión exitoso.",
+  "WELCOME": "Bienvenido",
+  "OTP_CANCELLED": "Código de verificación cancelado.",
+  "INTERRUPTED": "Proceso interrumpido",
+  "OTP_FAILED": "No se pudo enviar el código de verificación.",
+  "LOGIN_FAILED": "Error al iniciar sesión.",
+  "ERROR": "Error"
+},
+  "REGISTER": {
+    "TITLE": "Crea tu cuenta",
+    "EMAIL_LABEL": "Correo",
+    "EMAIL_SPEECH": "Ingrese su Correo electrónico",
+    "EMAIL_ERROR": "Ingrese un correo válido",
+    
+    "PREFIX_LABEL": "Prefijo",
+    "PREFIX_SPEECH": "Ingrese el Prefijo de su país",
+    "PREFIX_ERROR": "Ingrese un prefijo válido, recuerde el +",
+    
+    "PHONE_LABEL": "Teléfono",
+    "PHONE_SPEECH": "Ingrese su teléfono",
+    "PHONE_ERROR": "Ingrese un número de teléfono válido",
+    
+    "PASSWORD_LABEL": "Contraseña",
+    "PASSWORD_SPEECH": "Ingrese una contraseña",
+    "PASSWORD_ERROR": "La contraseña debe tener al menos 6 caracteres",
+    
+    "CONFIRM_LABEL": "Confirmar contraseña",
+    "CONFIRM_SPEECH": "Confirme su contraseña",
+    "CONFIRM_ERROR": "La confirmación de contraseña es obligatoria",
+    
+    "SUBMIT": "Regístrate",
+    "LOGIN_PROMPT": "¿Ya tienes cuenta?",
+    "LOGIN_LINK": "Inicia Sesión",
+
+    "INVALID_FORM": "Por favor, completa todos los campos correctamente.",
+    "WARNING": "Advertencia",
+    "PASSWORD_MISMATCH": "Las contraseñas no coinciden.",
+    "VALIDATION_ERROR": "Error de validación",
+    "SUCCESS": "Registro y autenticación exitosa",
+    "WELCOME": "Bienvenido",
+    "OTP_CANCELLED": "No se verificó el código OTP.",
+    "VERIFICATION_INCOMPLETE": "Verificación incompleta",
+    "OTP_FAILED": "No se pudo enviar el código de verificación.",
+    "POST_LOGIN_FAILED": "Error durante el login post-registro",
+    "REGISTRATION_FAILED": "Error al registrar usuario",
+    "ERROR": "Error"
+  },
   "DASHBOARD": {
     "NOTIFICATIONS": "Notificaciones",
     "ALERTS": "Alertas",
     "OVERALL_PROGRESS": "Progreso general:",
-    "CHART_PLACEHOLDER": "*Aquí va el gráfico*",
+    "PERCENTAGE": "{{percent}}%",
+    "NO_EMAIL": "Correo no disponible",
     "PENDING_TASKS": "Tareas pendientes",
     "TASK_COUNT": "Tienes {{count}} tareas pendientes",
     "TASK_ITEM": "Tarea #{{number}}",
     "SPEAK_TO_ADVISOR": "Habla con un asesor",
-    "NO_EMAIL": "Correo no disponible",
-    "NOTIFICATION_TITLE": "Documento vencido",
-    "NOTIFICATION_CONTENT": "Tu pasaporte ha vencido. Por favor, sube uno nuevo.",
-    "ALERT_TITLE": "Alerta importante",
-    "ALERT_CONTENT": "Necesitas actualizar tu información."
+    "LOGOUT": "Cerrar sesión",
+    "NO_LAWYERS_AVAILABLE": "No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.",
+    "CHAT_UNAVAILABLE": "Chat no disponible",
+    "CONNECTION_ERROR": "Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.",
+    "ERROR": "Error"
+  },
+  "OTP_DIALOG": {
+    "TITLE": "Verificación OTP",
+    "MESSAGE": "Se ha enviado un código de verificación a tu correo electrónico.",
+    "LABEL": "Código de verificación",
+    "CANCEL": "Cancelar",
+    "VERIFY": "Verificar"
+  },
+  "PROFILE": {
+    "MENU": {
+      "INFO": "Mi información",
+      "DOCS": "Mis documentos",
+      "PAYMENTS": "Mis pagos"
+    },
+    "NO_INFO": "No has completado tu información aún. Por favor complétala.",
+    "FORM": {
+      "NAME": "Nombre",
+      "LAST_NAME": "Apellido",
+      "PHONE_PREFIX": "Prefijo",
+      "PHONE": "Teléfono",
+      "COUNTRY": "País",
+      "BIRTH_DATE": "Fecha de nacimiento",
+      "PLACEHOLDER_NAME": "Escribe tu nombre",
+      "PLACEHOLDER_LAST_NAME": "Escribe tu apellido"
+    },
+    "ACTIONS": {
+      "EDIT": "Editar",
+      "SAVE": "Guardar"
+    },
+    "LOAD_INFO_FAILED": "No se pudo cargar la información del usuario",
+    "INCOMPLETE": "Perfil incompleto",
+    "IMAGE_ERROR": "Error al cargar la imagen de perfil",
+    "FILL_REQUIRED_FIELDS": "Por favor completa todos los campos requeridos.",
+    "INVALID_FORM": "Formulario inválido",
+    "UPDATE_SUCCESS": "Datos actualizados correctamente",
+    "UPDATE_ERROR": "Error al actualizar los datos",
+    "SUCCESS": "Éxito",
+    "ERROR": "Error"
+  },
+  "PROCESS_CARD": {
+    "TITLE": "Proceso",
+    "STATUS": "Estado",
+    "PAYMENT_STATUS": "Estado de pago",
+    "COST": "Costo",
+    "LEGAL_PROCESS_ID": "ID del proceso legal",
+    "START_DATE": "Fecha de inicio",
+    "END_DATE": "Fecha de finalización",
+    "PROCEDURES_TITLE": "Procedimientos",
+    "PROCEDURE_STATUS": "Estado",
+    "DUE_DATE": "Fecha límite",
+    "DOCUMENTS": "Documentos",
+    "UPLOADED": "Subido",
+    "PENDING": "Pendiente",
+    "UPLOAD_BUTTON": "Subir archivo"
+  },
+  "LEGALPROCESS":{
+    "MY_PROCESSES": "Mis Procesos",
+    "NO_PROCESSES_MSG": "No tienes procesos legales registrados.",
+    "UNKNOWN_STATUS": "Desconocido",
+    "UNTITLED_PROCESS": "Proceso sin título",
+    "VIEW_MORE": "Ver más",
+    "STATUS": "Estado"
+  },
+  "NAV": {
+    "HOME": "Inicio",
+    "MY_PROCESSES": "Mis Trámites",
+    "LANGUAGE": "Idioma",
+    "HELP": "Ayuda"
+  },
+  "LANG": {
+    "ES": "Español",
+    "EN": "Inglés"
+  },
+  "PROCESS_DETAIL": {
+    "LOAD_ERROR": "No se pudo cargar el proceso legal.",
+    "UPLOAD_SUCCESS": "Archivo subido correctamente.",
+    "UPLOAD_ERROR": "Error al subir el archivo.",
+    "NO_FILE_SELECTED": "Por favor selecciona un archivo primero.",
+    "WARNING": "Advertencia",
+    "SUCCESS": "Éxito",
+    "ERROR": "Error"
+  },
+  "CHAT": {
+  "TITLE": "Chat",
+  "CONNECTED": "Conectado al chat en tiempo real",
+  "CONNECTION_ERROR": "No se pudo conectar al chat en tiempo real",
+  "DISCONNECTED": "Desconectado del chat",
+  "DISCONNECT_ERROR": "No se pudo cerrar la conexión correctamente.",
+  "ROLE_UNDETECTED": "No se pudo determinar tu rol de usuario.",
+  "NO_LAWYER_ASSIGNED": "No tienes un abogado asignado. Inténtalo más tarde.",
+  "ERROR_OPENING_CHAT": "Error al abrir el chat",
+  "NO_CONNECTION": "No hay conexión establecida con el servidor de chat.",
+  "LOAD_MESSAGES_ERROR": "No se pudieron cargar los mensajes.",
+  "SEND_ERROR": "No se pudo enviar el mensaje.",
+  "TYPING_ERROR": "No se pudo notificar que estás escribiendo.",
+  "NEW_MESSAGE": "Nuevo mensaje recibido",
+  "WARNING": "Advertencia"
   }
 }

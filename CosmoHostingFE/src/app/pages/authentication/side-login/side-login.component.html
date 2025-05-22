@@ -7,12 +7,12 @@
   <!-- Formulario en el lado derecho -->
   <div class="login-card">
     <div class="auth-box">
-      <h2 class="auth-title">Inicia Sesión</h2>
+      <h2 class="auth-title">{{ 'LOGIN.TITLE' | translate }}</h2>
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
           <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="d-flex align-items-center justify-between">
-              <mat-label class="input-label">Correo</mat-label>
+              <mat-label class="input-label">{{ 'LOGIN.EMAIL' | translate }}</mat-label>
               <button mat-icon-button color="primary" type="button" (click)="leer('Correo electrónico')">
                 🔊
               </button>
@@ -20,12 +20,12 @@
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="email" formControlName="email" required />
               <mat-error *ngIf="f.email.invalid && f.email.touched">
-                Ingrese un correo válido
+                {{ 'LOGIN.INVALID_EMAIL' | translate }}
               </mat-error>
             </mat-form-field>
           
             <div class="d-flex align-items-center justify-between">
-              <mat-label class="input-label">Contraseña</mat-label>
+              <mat-label class="input-label">{{ 'LOGIN.PASSWORD' | translate }}</mat-label>
               <button mat-icon-button color="primary" type="button" (click)="leer('Ingrese su contraseña')">
                 🔊
               </button>
@@ -33,25 +33,26 @@
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="password" formControlName="password" required />
               <mat-error *ngIf="f.password.invalid && f.password.touched">
-                La contraseña debe tener al menos 6 caracteres
+               {{ 'LOGIN.INVALID_PASSWORD' | translate }}
               </mat-error>
             </mat-form-field>
           
             <div class="d-flex align-items-center m-b-12">
-              <mat-checkbox color="primary">Recuérdame</mat-checkbox>
+              <mat-checkbox color="primary">{{ 'LOGIN.REMEMBER_ME' | translate }}</mat-checkbox>
             </div>
           
             <button mat-flat-button color="primary" class="w-100" type="submit">
-              Iniciar Sesión
+              {{ 'LOGIN.LOGIN_BUTTON' | translate }}
             </button>
           </form>          
 
           <span class="d-block f-w-500 text-center m-t-24">
-            ¿Aún no tienes cuenta?
+            {{ 'LOGIN.NO_ACCOUNT' | translate }}
             <a [routerLink]="['/authentication/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Regístrate
+              {{ 'LOGIN.REGISTER' | translate }}
             </a>
           </span>
+
         </mat-card-content>
       </mat-card>
     </div>
