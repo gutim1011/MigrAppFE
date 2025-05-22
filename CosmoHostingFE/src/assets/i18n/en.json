@@ -1,17 +1,114 @@
 {
+  "LOGIN": {
+  "TITLE": "Login",
+  "EMAIL": "Email",
+  "INVALID_EMAIL": "Enter a valid email",
+  "PASSWORD": "Password",
+  "INVALID_PASSWORD": "Password must be at least 6 characters",
+  "REMEMBER_ME": "Remember me",
+  "LOGIN_BUTTON": "Login",
+  "NO_ACCOUNT": "Don't have an account?",
+  "REGISTER": "Register"
+},
+"REGISTER": {
+    "TITLE": "Create your account",
+    "EMAIL_LABEL": "Email",
+    "EMAIL_SPEECH": "Enter your email address",
+    "EMAIL_ERROR": "Please enter a valid email",
+    
+    "PREFIX_LABEL": "Prefix",
+    "PREFIX_SPEECH": "Enter your country prefix",
+    "PREFIX_ERROR": "Enter a valid prefix, don't forget the +",
+    
+    "PHONE_LABEL": "Phone",
+    "PHONE_SPEECH": "Enter your phone number",
+    "PHONE_ERROR": "Please enter a valid phone number",
+    
+    "PASSWORD_LABEL": "Password",
+    "PASSWORD_SPEECH": "Enter a password",
+    "PASSWORD_ERROR": "Password must be at least 6 characters",
+    
+    "CONFIRM_LABEL": "Confirm password",
+    "CONFIRM_SPEECH": "Confirm your password",
+    "CONFIRM_ERROR": "Password confirmation is required",
+    
+    "SUBMIT": "Register",
+    "LOGIN_PROMPT": "Already have an account?",
+    "LOGIN_LINK": "Log in"
+  },
   "DASHBOARD": {
     "NOTIFICATIONS": "Notifications",
     "ALERTS": "Alerts",
     "OVERALL_PROGRESS": "Overall progress:",
-    "CHART_PLACEHOLDER": "*Chart goes here*",
+    "PERCENTAGE": "{{percent}}%",
+    "NO_EMAIL": "No email available",
     "PENDING_TASKS": "Pending tasks",
     "TASK_COUNT": "You have {{count}} pending tasks",
     "TASK_ITEM": "Task #{{number}}",
     "SPEAK_TO_ADVISOR": "Speak to an advisor",
-    "NO_EMAIL": "No email available",
-    "NOTIFICATION_TITLE": "Document Expired",
-    "NOTIFICATION_CONTENT": "Your passport has expired. Please upload a new one.",
-    "ALERT_TITLE": "Important Alert",
-    "ALERT_CONTENT": "You need to update your information."
+    "LOGOUT": "Logout"
+  },
+   "OTP_DIALOG": {
+    "TITLE": "OTP Verification",
+    "MESSAGE": "A verification code has been sent to your email.",
+    "LABEL": "Verification code",
+    "CANCEL": "Cancel",
+    "VERIFY": "Verify"
+  },
+  "PROFILE": {
+    "MENU": {
+      "INFO": "Mi información",
+      "DOCS": "Mis documentos",
+      "PAYMENTS": "Mis pagos"
+    },
+    "NO_INFO": "No has completado tu información aún. Por favor complétala.",
+    "FORM": {
+      "NAME": "Nombre",
+      "LAST_NAME": "Apellido",
+      "PHONE_PREFIX": "Prefijo",
+      "PHONE": "Teléfono",
+      "COUNTRY": "País",
+      "BIRTH_DATE": "Fecha de nacimiento",
+      "PLACEHOLDER_NAME": "Escribe tu nombre",
+      "PLACEHOLDER_LAST_NAME": "Escribe tu apellido"
+    },
+    "ACTIONS": {
+      "EDIT": "Editar",
+      "SAVE": "Guardar"
+    }
+  },
+  "PROCESS_CARD": {
+    "TITLE": "Process",
+    "STATUS": "Status",
+    "PAYMENT_STATUS": "Payment Status",
+    "COST": "Cost",
+    "LEGAL_PROCESS_ID": "Legal Process ID",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date",
+    "PROCEDURES_TITLE": "Procedures",
+    "PROCEDURE_STATUS": "Status",
+    "DUE_DATE": "Due Date",
+    "DOCUMENTS": "Documents",
+    "UPLOADED": "Uploaded",
+    "PENDING": "Pending",
+    "UPLOAD_BUTTON": "Upload file"
+  },
+  "LEGALPROCESS":{
+  "MY_PROCESSES": "My Processes",
+  "NO_PROCESSES_MSG": "You have no registered legal processes.",
+  "UNKNOWN_STATUS": "Unknown",
+  "UNTITLED_PROCESS": "Untitled process",
+  "VIEW_MORE": "View more",
+  "STATUS": "Status"
+  },
+  "NAV": {
+    "HOME": "Home",
+    "MY_PROCESSES": "My Processes",
+    "LANGUAGE": "Language",
+    "HELP": "Help"
+  },
+  "LANG": {
+    "ES": "Spanish",
+    "EN": "English"
   }
 }
