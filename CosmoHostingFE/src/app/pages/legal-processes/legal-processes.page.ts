@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { LegalProcessService } from '../../services/legal-process.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
@@ -13,7 +14,8 @@ import { LegalProcessService } from '../../services/legal-process.service';
     CommonModule,
     MatListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './legal-processes.page.html',
   styleUrls: ['./legal-processes.page.scss']

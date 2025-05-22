@@ -27,8 +27,10 @@ export class AuthService {
   }
 
   getHelpContent(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/userHelp`);
-  }
+  const lang = localStorage.getItem('language') || 'es'; // Valor por defecto: 'es'
+  return this.http.get(`${this.apiUrl}/userHelp/?lang=${lang}`);
+}
+
 
   getUserInfo(userId: number) {
   const token = localStorage.getItem('authToken');

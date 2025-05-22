@@ -15,7 +15,7 @@
       <!-- Inner Info Card (Name + Description) -->
       <div class="inner-info-card">
         <h3>{{ userData?.fullName || '...' }}</h3>
-        <p>{{ userData?.email || 'No email available' }}</p>
+        <p>{{ userData?.email || ('DASHBOARD.NO_EMAIL' | translate) }}</p>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
       <div class="card notifications-card">
         <div class="card-header">
           <i class="fa-solid fa-bell"></i>
-          <h4>Notifications</h4>
+          <h4>{{ 'DASHBOARD.NOTIFICATIONS' | translate }}</h4>
         </div>
         <div class="notifications-list">
           <ul>
@@ -42,7 +42,7 @@
       <div class="card alerts-card">
         <div class="card-header">
           <i class="fa-solid fa-circle-exclamation"></i>
-          <h4>Alerts</h4>
+          <h4>{{ 'DASHBOARD.ALERTS' | translate }}</h4>
         </div>
         <div class="alerts-list">
           <ul>
@@ -56,11 +56,11 @@
 
     <!-- Progress Bar -->
     <div class="card progress-card">
-      <span>Overall progress:</span>
+      <span>{{ 'DASHBOARD.OVERALL_PROGRESS' | translate }}</span>
       <div class="progress-bar">
         <div class="progress" [style.width.%]="progressPercentage"></div>
       </div>
-      <p>{{ progressPercentage }}%</p>
+      <p>{{ 'DASHBOARD.PERCENTAGE' | translate:{ percent: progressPercentage } }}</p>
     </div>
   </div>
 
@@ -78,10 +78,10 @@
   <!-- Right Side: Tasks -->
   <div class="tasks-section">
     <div class="card tasks-card">
-      <h4>Pending tasks</h4>
-      <p>You have <strong>#</strong> pending tasks</p>
+      <h4>{{ 'DASHBOARD.PENDING_TASKS' | translate }}</h4>
+      <p>{{ 'DASHBOARD.TASK_COUNT' | translate:{ count: 5 } }}</p>
       <ul>
-        <li *ngFor="let t of [1,2,3,4,5]">Task #{{ t }}</li>
+        <li *ngFor="let t of [1,2,3,4,5]">T{{ 'DASHBOARD.TASK_ITEM' | translate:{ number: t } }}</li>
       </ul>
     </div>
   </div>
@@ -89,12 +89,12 @@
   <!-- Floating Chat Button -->
   <button class="chat-button" (click)="goToChat()">
     <i class="fa-solid fa-headset"></i>
-    Speak to an advisor
+    {{ 'DASHBOARD.SPEAK_TO_ADVISOR' | translate }}
   </button>
 
   <button class="chat-button" (click)="logout()">
     <i class="fa-solid fa-headset"></i>
-    logout
+    {{ 'DASHBOARD.LOGOUT' | translate }}
   </button>
 </div>
 

@@ -8,26 +8,34 @@
       <!-- Inicio -->
       <button class="nav-item" mat-button (click)="openDashboard()">
         <i-tabler name="home" class="icon-20"></i-tabler>
-        Inicio
+        {{ 'NAV.HOME' | translate }}
       </button>
   
       <!-- Mis Trámites -->
       <button class="nav-item" mat-button (click)="goToProcess()">
         <i-tabler name="file-text" class="icon-20"></i-tabler>
-        Mis Trámites
+         {{ 'NAV.MY_PROCESSES' | translate }}
       </button>
   
       <!-- Idioma -->
       <button class="nav-item" mat-button [matMenuTriggerFor]="idiomaMenu">
         <i-tabler name="language" class="icon-20"></i-tabler>
-        Idioma
+        {{ 'NAV.LANGUAGE' | translate }}
         <i-tabler name="chevron-down" class="icon-16"></i-tabler>
+        <mat-menu #idiomaMenu="matMenu" class="nav-dropdown">
+        <button mat-menu-item (click)="switchLanguage('es')">
+          🇪🇸 {{ 'LANG.ES' | translate }}
+        </button>
+        <button mat-menu-item (click)="switchLanguage('en')">
+           🇺🇸 {{ 'LANG.EN' | translate }}
+        </button>
+      </mat-menu>
       </button>
 
       <!-- Help Button -->
       <button class="nav-item" mat-button (click)="openHelp()">
         <i-tabler name="help-circle" class="icon-20"></i-tabler>
-        Help
+        {{ 'NAV.HELP' | translate }}
       </button>
     </div>
   

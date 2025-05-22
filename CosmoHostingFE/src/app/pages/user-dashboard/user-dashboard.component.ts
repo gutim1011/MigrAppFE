@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppSalesOverviewComponent } from '../../components/sales-overview/sales-overview.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartType, ChartOptions, ChartData } from 'chart.js';
@@ -23,6 +24,7 @@ import { ChartType, ChartOptions, ChartData } from 'chart.js';
     NotificationModalComponent,
     MatProgressBarModule,
     AppSalesOverviewComponent,
+    TranslateModule,
     NgChartsModule
   ],
   templateUrl: './user-dashboard.component.html',

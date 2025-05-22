@@ -11,10 +11,12 @@ import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.compo
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CommonModule } from '@angular/common';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, CommonModule,],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, CommonModule,TranslateModule,],
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
@@ -47,12 +49,10 @@ export class AppSideRegisterComponent {
 
   submit() {
     if (this.form.invalid) {
-      alert('Por favor, completa todos los campos correctamente.');
       return;
     }
   
     if (this.form.value.password !== this.form.value.confirmPassword) {
-      alert('Las contraseñas no coinciden.');
       return;
     }
   
@@ -81,20 +81,16 @@ export class AppSideRegisterComponent {
   
             dialogRef.afterClosed().subscribe((result: boolean) => {
               if (result === true) {
-                alert('Registro y autenticación exitosa');
                 this.router.navigate(['/profile']);
               } else {
-                alert('No se verificó el código OTP.');
               }
             });
           }
         }, () => {
-          alert('Error durante el login post-registro');
         });
       },
       (error) => {
         console.log(userData);
-        alert('Error al registrar usuario');
         console.error(error);
       }
     );

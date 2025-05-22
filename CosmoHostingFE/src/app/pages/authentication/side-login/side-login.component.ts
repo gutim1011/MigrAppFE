@@ -10,13 +10,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.component';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { CommonModule } from '@angular/common';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-side-login',
   standalone: true,
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule,CommonModule,],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule,CommonModule,TranslateModule,],
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
