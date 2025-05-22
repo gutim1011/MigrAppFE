@@ -38,7 +38,6 @@ export class UserDashboardComponent implements OnInit {
   legalService = inject(LegalProcessService);
 
   chatService = inject(ChatService);
-  legalService = inject(LegalProcessService);
 
   userData: any = {};
   userImageUrl: string = 'assets/images/default.jpg';
