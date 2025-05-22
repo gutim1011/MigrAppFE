@@ -5,8 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/services/auth.service';
-
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr'; // ✅ Importar Toastr
 
 @Component({
   standalone: true,
@@ -25,6 +25,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 export class CompleteProfileComponent {
   fb = inject(FormBuilder);
   userService = inject(AuthService);
+  toastr = inject(ToastrService); // ✅ Inyectar Toastr
 
   profileForm = this.fb.group({
     name: ['', Validators.required],
@@ -42,7 +43,8 @@ export class CompleteProfileComponent {
   ngOnInit() {
     const storedId = localStorage.getItem('userId');
     if (storedId) {
-      this.userId = +storedId;}
+      this.userId = +storedId;
+    }
 
     if (!this.userId) return;
 
@@ -62,7 +64,8 @@ export class CompleteProfileComponent {
       },
       error: () => {
         this.hasInfo = false;
-        this.profileForm.disable(); // Deshabilitar hasta que presione editar
+        this.profileForm.disable();
+        this.toastr.info('No se pudo cargar la información del usuario', 'Perfil incompleto');
       }
     });
   }
@@ -73,20 +76,27 @@ export class CompleteProfileComponent {
   }
 
   onSubmit() {
-    if (this.profileForm.invalid) return;
+    if (this.profileForm.invalid) {
+      this.toastr.warning('Por favor completa todos los campos requeridos.', 'Formulario inválido');
+      return;
+    }
 
     const storedId = localStorage.getItem('userId');
     if (storedId) {
-      this.userId = +storedId;}
+      this.userId = +storedId;
+    }
+
     const formData = this.profileForm.value;
 
     this.userService.updateUser(this.userId, formData).subscribe({
-      next: (res) => {
-        alert('Datos actualizados correctamente');
+      next: () => {
+        this.toastr.success('Datos actualizados correctamente', 'Éxito');
         this.isEditMode = false;
         this.profileForm.disable();
       },
-      error: () => alert('Error al actualizar los datos')
+      error: () => {
+        this.toastr.error('Error al actualizar los datos', 'Error');
+      }
     });
   }
 }

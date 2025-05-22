@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.0.0",
+    "@angular/animations": "^19.2.12",
     "@angular/cdk": "^19.0.0",
     "@angular/common": "^19.0.0",
     "@angular/compiler": "^19.0.0",
@@ -35,6 +35,7 @@
     "ngx-bootstrap": "^19.0.2",
     "ngx-intl-tel-input": "^17.0.0",
     "ngx-scrollbar": "^11.0.0",
+    "ngx-toastr": "^19.0.0",
     "npm": "^11.3.0",
     "rxjs": "~7.5.0",
     "sass": "1.81.0",

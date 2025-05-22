@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.component';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -28,6 +29,7 @@ export class AppSideLoginComponent {
     private authService: AuthService,
     public dialog: MatDialog,
     private tts: TextToSpeechService,
+    private toastr: ToastrService
   ) {}
 
   form = new FormGroup({
@@ -47,7 +49,7 @@ export class AppSideLoginComponent {
 
   submit() {
     if (this.form.invalid) {
-      alert('Por favor, completa todos los campos correctamente.');
+      this.toastr.warning('Por favor, completa todos los campos correctamente.', 'Formulario inválido');
       return;
     }
 
@@ -68,15 +70,18 @@ export class AppSideLoginComponent {
 
           dialogRef.afterClosed().subscribe((success: boolean) => {
             if (success) {
+              this.toastr.success('Inicio de sesión exitoso', 'Bienvenido');
               this.router.navigate(['/user-dashboard']);
+            } else {
+              this.toastr.info('Código de verificación cancelado', 'Proceso interrumpido');
             }
           });
         } else {
-          alert('No se pudo enviar el código de verificación');
+          this.toastr.error('No se pudo enviar el código de verificación', 'Error');
         }
       },
       (error) => {
-        alert('Error al iniciar sesión');
+        this.toastr.error('Error al iniciar sesión', 'Error');
         console.error(error);
       }
     );

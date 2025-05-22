@@ -4,8 +4,9 @@ import { AuthService } from './auth.service';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { MessageRequest } from '../models/message-request';
 import { Message } from '../models/message';
-import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class ChatService {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
   private hubUrl = 'http://localhost:5199/hubs/chat';
 
   onlineUsers = signal<User[]>([]);
@@ -28,16 +30,15 @@ export class ChatService {
   private typingTimeout?: any;
   private connectionPromise: Promise<void> | null = null;
 
-  // Método para asegurar la conexión antes de usar el chat
   async ensureConnection(): Promise<void> {
     if (this.hubConnection?.state === 'Connected') {
       return Promise.resolve();
     }
-    
+
     if (!this.connectionPromise) {
       this.connectionPromise = this.startConnection();
     }
-    
+
     return this.connectionPromise;
   }
 
@@ -60,15 +61,15 @@ export class ChatService {
       await this.hubConnection.start();
       console.log('Conexión establecida con SignalR');
       await this.waitForAssignedUsers(3000);
-      
-      // Determinar si el usuario es abogado
+
       const userType = await this.determineUserType();
       this.isLawyer.set(userType === 'lawyer');
-      
+
+      this.toastr.success('Conectado al chat en tiempo real', 'SignalR');
       this.loading.set(false);
-        
     } catch (err) {
       console.error('Error al conectar con SignalR', err);
+      this.toastr.error('No se pudo conectar al chat en tiempo real', 'Error');
       this.loading.set(false);
       throw err;
     }
@@ -77,11 +78,12 @@ export class ChatService {
   private async determineUserType(): Promise<string> {
     try {
       const users = this.onlineUsers();
-      console.log("número de usuarios: ", users.length)
+      console.log("número de usuarios: ", users.length);
       return users.length > 1 ? 'lawyer' : 'user';
     } catch (error) {
       console.error('Error al determinar el tipo de usuario', error);
-      return 'user'; 
+      this.toastr.warning('No se pudo determinar tu rol de usuario.', 'Advertencia');
+      return 'user';
     }
   }
 
@@ -91,17 +93,16 @@ export class ChatService {
     this.hubConnection.on('AllLawyers', (users: User[]) => {
       this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) })));
       console.log('Usuarios en línea actualizados:', users);
-      
+
       if (users.length === 1 && !this.isLawyer()) {
         this.openChat(users[0]);
       }
     });
 
     this.hubConnection.on('AssignedClients', (users: User[]) => {
-      this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) }))); 
+      this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) })));
       console.log('Clientes asignados recibidos:', users);
     });
-
 
     this.hubConnection.on('ReceiveMessageList', (messages: Message[]) => {
       this.messages.set(messages.map(m => ({
@@ -127,6 +128,7 @@ export class ChatService {
       const currentChat = this.currentOpenedChat();
       if (!currentChat || currentChat.id !== parsed.senderId) {
         this.updateUnreadCount(parsed.senderId);
+        this.toastr.info('Nuevo mensaje recibido', 'Chat');
       }
 
       console.log('Nuevo mensaje recibido:', parsed);
@@ -159,29 +161,27 @@ export class ChatService {
     });
   }
 
-  // Método para ir directamente al chat como cliente
   async goToClientChat(): Promise<boolean> {
     try {
       await this.ensureConnection();
-
       const users = await this.waitForAssignedUsers(3000);
-      console.log('Usuarios asignados al entrar al chat:', users);
 
-      // Verifica que al menos haya un abogado asignado
       if (!users || !Array.isArray(users) || users.length === 0) {
-        throw new Error('No tienes un abogado asignado. Inténtalo más tarde.');
+        this.toastr.warning('No tienes un abogado asignado. Inténtalo más tarde.', 'Chat');
+        return false;
       }
 
       return await this.router.navigate(['/live-chat']);
     } catch (error) {
       console.error('Error interno en goToClientChat:', error);
-      throw error; // vuelve a lanzar para ser capturado en goToChat
+      this.toastr.error('Error al abrir el chat', 'Error');
+      throw error;
     }
   }
 
   loadMessages(receiverId: number, pageNumber: number = 1) {
     if (!this.hubConnection) {
-      console.error('No hay conexión establecida');
+      this.toastr.error('No hay conexión establecida con el servidor de chat.', 'Error');
       return;
     }
 
@@ -194,28 +194,28 @@ export class ChatService {
       })
       .catch(err => {
         console.error('Error al cargar mensajes:', err);
+        this.toastr.error('No se pudieron cargar los mensajes.', 'Error');
         this.loading.set(false);
       });
   }
 
   sendMessage(receiverId: number, content: string) {
     if (!this.hubConnection) {
-      console.error('No hay conexión establecida');
+      this.toastr.error('No hay conexión establecida con el servidor de chat.', 'Error');
       return;
     }
 
     const senderId = Number(this.authService.currentLoggedUser);
 
     const newMessage: Message = {
-      id: Date.now(), // ID temporal
+      id: Date.now(),
       content: content,
       createdDate: new Date().toISOString(),
       senderId: senderId,
       receiverId: receiverId,
-      isRead: true // ya lo leyó el emisor
+      isRead: true
     };
 
-    // Agregar mensaje local inmediatamente
     const currentMessages = this.messages();
     this.messages.set([...currentMessages, newMessage]);
 
@@ -230,6 +230,7 @@ export class ChatService {
       })
       .catch(err => {
         console.error('Error al enviar mensaje:', err);
+        this.toastr.error('No se pudo enviar el mensaje.', 'Error');
       });
   }
 
@@ -239,7 +240,10 @@ export class ChatService {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
       this.hubConnection?.invoke('NotifyTyping', Number(receiverId))
-        .catch(err => console.error('Error al notificar escritura:', err));
+        .catch(err => {
+          console.error('Error al notificar escritura:', err);
+          this.toastr.error('No se pudo notificar que estás escribiendo.', 'Error');
+        });
     }, 300);
   }
 
@@ -301,8 +305,14 @@ export class ChatService {
   disconnect() {
     if (this.hubConnection) {
       this.hubConnection.stop()
-        .then(() => console.log('Desconectado de SignalR'))
-        .catch(err => console.error('Error al desconectar:', err));
+        .then(() => {
+          console.log('Desconectado de SignalR');
+          this.toastr.info('Desconectado del chat', 'SignalR');
+        })
+        .catch(err => {
+          console.error('Error al desconectar:', err);
+          this.toastr.error('No se pudo cerrar la conexión correctamente.', 'Error');
+        });
       this.connectionPromise = null;
     }
   }

@@ -5,12 +5,12 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; // ✅ Toastr agregado
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-overview.component'
-
+import { AppSalesOverviewComponent } from '../../components/sales-overview/sales-overview.component';
 
 @Component({
   standalone: true,
@@ -27,7 +27,11 @@ import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-o
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent {
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    private toastr: ToastrService // ✅ Toastr inyectado
+  ) {}
 
   authService = inject(AuthService);
   chatService = inject(ChatService);
@@ -38,7 +42,6 @@ export class UserDashboardComponent {
   progressPercentage: number = 0;
   chartLabels: string[] = [];
   chartData: number[] = [];
-
 
   ngOnInit() {
     const storedId = localStorage.getItem('userId');
@@ -65,13 +68,13 @@ export class UserDashboardComponent {
 
   fetchLegalProcesses() {
     this.legalService.getUserProcesses(this.userId).subscribe({
-    next: (processes) => {
-      this.calculateAverageProgress(processes);
-      this.prepareChartData(processes);
-    },
-    error: (err) => {
-      console.error('Error loading legal processes:', err);
-    }
+      next: (processes) => {
+        this.calculateAverageProgress(processes);
+        this.prepareChartData(processes);
+      },
+      error: (err) => {
+        console.error('Error loading legal processes:', err);
+      }
     });
   }
 
@@ -104,15 +107,20 @@ export class UserDashboardComponent {
   async goToChat(): Promise<void> {
     try {
       await this.chatService.ensureConnection();
-      
       const result = await this.chatService.goToClientChat();
-      
+
       if (!result) {
-        alert('No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.');
+        this.toastr.warning(
+          'No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.',
+          'Chat no disponible'
+        );
       }
     } catch (error) {
       console.error('Error al acceder al chat:', error);
-      alert('Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.');
+      this.toastr.error(
+        'Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.',
+        'Error de conexión'
+      );
     }
   }
 
@@ -121,7 +129,7 @@ export class UserDashboardComponent {
     this.authService.logout();
     this.router.navigate(['/authentication/login']);
   }
-  
+
   openNotificationDialog(note: any) {
     this.dialog.open(NotificationModalComponent, { data: note });
   }

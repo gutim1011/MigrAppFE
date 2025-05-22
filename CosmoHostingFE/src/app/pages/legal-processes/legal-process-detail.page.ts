@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { CommonModule } from '@angular/common';
 
-// IMPORTA ESTOS MÓDULOS DE ANGULAR MATERIAL 👇
+// Módulos Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+
+import { ToastrService } from 'ngx-toastr'; // ✅ Importar Toastr
 
 @Component({
   selector: 'app-legal-process-detail',
@@ -22,10 +24,12 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class LegalProcessDetailPage implements OnInit {
   process: any;
+  selectedFiles: { [key: string]: File } = {};
 
   constructor(
     private route: ActivatedRoute,
-    private legalProcessService: LegalProcessService
+    private legalProcessService: LegalProcessService,
+    private toastr: ToastrService // ✅ Inyectar Toastr
   ) {}
 
   ngOnInit() {
@@ -36,43 +40,42 @@ export class LegalProcessDetailPage implements OnInit {
   loadProcess(id: number) {
     this.legalProcessService.getProcessDetails(id).subscribe({
       next: (data) => this.process = data,
-      error: (err) => console.error('Error loading process:', err)
+      error: (err) => {
+        console.error('Error loading process:', err);
+        this.toastr.error('No se pudo cargar el proceso legal.', 'Error');
+      }
     });
   }
 
-  selectedFiles: { [key: string]: File } = {};
-
-onFileSelected(event: any, procedureId: number, documentId: number) {
-  const file: File = event.target.files[0];
-  if (file) {
-    const key = `${procedureId}_${documentId}`;
-    this.selectedFiles[key] = file;
-  }
-}
-
-
-uploadFile(procedureId: number, documentId: number) {
-  const key = `${procedureId}_${documentId}`;
-  const file = this.selectedFiles[key];
-
-  if (!file) {
-    alert('Por favor selecciona un archivo primero.');
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('file', file);
-
-  this.legalProcessService.uploadDocument(procedureId, documentId, formData).subscribe({
-    next: (res) => {
-      alert('Archivo subido correctamente.');
-      // Opcional: actualizar estado visual del documento como "Subido"
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Error al subir el archivo.');
+  onFileSelected(event: any, procedureId: number, documentId: number) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const key = `${procedureId}_${documentId}`;
+      this.selectedFiles[key] = file;
     }
-  });
-}
+  }
 
+  uploadFile(procedureId: number, documentId: number) {
+    const key = `${procedureId}_${documentId}`;
+    const file = this.selectedFiles[key];
+
+    if (!file) {
+      this.toastr.warning('Por favor selecciona un archivo primero.', 'Advertencia');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.legalProcessService.uploadDocument(procedureId, documentId, formData).subscribe({
+      next: () => {
+        this.toastr.success('Archivo subido correctamente.', 'Éxito');
+        // Aquí puedes actualizar el estado visual si lo deseas
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastr.error('Error al subir el archivo.', 'Error');
+      }
+    });
+  }
 }

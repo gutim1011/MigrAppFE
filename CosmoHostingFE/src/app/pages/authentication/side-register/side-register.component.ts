@@ -11,10 +11,18 @@ import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.compo
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CommonModule } from '@angular/common';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, CommonModule,],
+  imports: [
+    RouterModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxIntlTelInputModule,
+    CommonModule
+  ],
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
@@ -26,12 +34,13 @@ export class AppSideRegisterComponent {
     private authService: AuthService,
     public dialog: MatDialog,
     private tts: TextToSpeechService,
+    private toastr: ToastrService
   ) {}
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
-    phonePrefix : new FormControl('', [Validators.required, Validators.minLength(2)]),
+    phonePrefix: new FormControl('', [Validators.required, Validators.minLength(2)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
@@ -41,28 +50,27 @@ export class AppSideRegisterComponent {
   }
 
   leer(texto: string) {
-    console.log("leyenod",texto)
     this.tts.speak(texto);
   }
 
   submit() {
     if (this.form.invalid) {
-      alert('Por favor, completa todos los campos correctamente.');
+      this.toastr.warning('Por favor, completa todos los campos correctamente.', 'Formulario inválido');
       return;
     }
-  
+
     if (this.form.value.password !== this.form.value.confirmPassword) {
-      alert('Las contraseñas no coinciden.');
+      this.toastr.error('Las contraseñas no coinciden.', 'Error de validación');
       return;
     }
-  
+
     const userData = {
       Email: this.form.value.email,
       Phone: this.form.value.phone,
       PhonePrefix: this.form.value.phonePrefix,
       PasswordHash: this.form.value.password,
     };
-  
+
     this.authService.register(userData).subscribe(
       () => {
         const loginData = {
@@ -71,34 +79,36 @@ export class AppSideRegisterComponent {
           PreferredMfaMethod: 'email',
           RememberMe: true
         };
-  
-        this.authService.login(loginData).subscribe((res: any) => {
-          if (res?.message === 'Código de verificaciï¿½n enviado') {
-            const dialogRef = this.dialog.open(OtpModalComponent, {
-              width: '500px',
-              data: { email: userData.Email, rememberMe: true },
-            });
-  
-            dialogRef.afterClosed().subscribe((result: boolean) => {
-              if (result === true) {
-                alert('Registro y autenticación exitosa');
-                this.router.navigate(['/profile']);
-              } else {
-                alert('No se verificó el código OTP.');
-              }
-            });
+
+        this.authService.login(loginData).subscribe(
+          (res: any) => {
+            if (res?.message === 'Código de verificación enviado') {
+              const dialogRef = this.dialog.open(OtpModalComponent, {
+                width: '500px',
+                data: { email: userData.Email, rememberMe: true },
+              });
+
+              dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result === true) {
+                  this.toastr.success('Registro y autenticación exitosa', 'Bienvenido');
+                  this.router.navigate(['/profile']);
+                } else {
+                  this.toastr.info('No se verificó el código OTP.', 'Verificación incompleta');
+                }
+              });
+            } else {
+              this.toastr.error('No se pudo enviar el código de verificación.', 'Error');
+            }
+          },
+          () => {
+            this.toastr.error('Error durante el login post-registro', 'Error');
           }
-        }, () => {
-          alert('Error durante el login post-registro');
-        });
+        );
       },
       (error) => {
-        console.log(userData);
-        alert('Error al registrar usuario');
         console.error(error);
+        this.toastr.error('Error al registrar usuario', 'Registro fallido');
       }
     );
   }
-  
-  
 }
