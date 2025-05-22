@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Verificación OTP</h2>
+<h2 mat-dialog-title>{{ 'OTP_DIALOG.TITLE' | translate }}</h2>
 <mat-dialog-content>
-  <p>Se ha enviado un código de verificación a tu correo electrónico.</p>
+  <p>{{ 'OTP_DIALOG.MESSAGE' | translate }}</p>
   <form [formGroup]="otpForm">
-    <mat-label class="input-label">Código de verificación</mat-label>
+    <mat-label class="input-label">{{ 'OTP_DIALOG.LABEL' | translate }}</mat-label>
 
     <mat-form-field appearance="outline" class="w-100" style="min-width: 250px;">
         <input matInput type="text" formControlName="otpCode" />
@@ -10,8 +10,8 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-button (click)="close()">{{ 'OTP_DIALOG.CANCEL' | translate }}</button>
   <button mat-raised-button color="primary" (click)="validateOtp()" [disabled]="otpForm.invalid">
-    Verificar
+    {{ 'OTP_DIALOG.VERIFY' | translate }}
   </button>
 </mat-dialog-actions>

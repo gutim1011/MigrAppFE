@@ -6,9 +6,9 @@
       </div>
   
       <div class="menu-buttons">
-        <button mat-button class="info-btn"><i class="fa fa-user"></i> Mi información</button>
-        <button mat-button class="docs-btn"><i class="fa fa-file"></i> Mis documentos</button>
-        <button mat-button class="pay-btn"><i class="fa fa-dollar-sign"></i> Mis pagos</button>
+        <button mat-button class="info-btn"><i class="fa fa-user"></i>{{ 'PROFILE.MENU.INFO' | translate }}</button>
+        <button mat-button class="docs-btn"><i class="fa fa-file"></i> {{ 'PROFILE.MENU.DOCS' | translate }}</button>
+        <button mat-button class="pay-btn"><i class="fa fa-dollar-sign"></i> {{ 'PROFILE.MENU.PAYMENTS' | translate }}</button>
       </div>
     </div>
   
@@ -16,47 +16,47 @@
     <div class="right-panel">
       <mat-card>
         <div *ngIf="!hasInfo" class="no-info-msg">
-          <p>No has completado tu información aún. Por favor complétala.</p>
+          <p>{{ 'PROFILE.NO_INFO' | translate }}</p>
         </div>
 
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-container">
-          <mat-label>Nombre</mat-label>
+          <mat-label>{{ 'PROFILE.FORM.NAME' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput formControlName="name" placeholder="Escribe tu nombre" />
           </mat-form-field>
 
-          <mat-label>Apellido</mat-label>
+          <mat-label>{{ 'PROFILE.FORM.LAST_NAME' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput formControlName="lastName" placeholder="Escribe tu apellido" />
           </mat-form-field>
 
-          <mat-label>Prefijo</mat-label>
+          <mat-label>{{ 'PROFILE.FORM.PHONE_PREFIX' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput formControlName="phonePrefix" />
           </mat-form-field>
 
-          <mat-label>Teléfono</mat-label>
+          <mat-label>{{ 'PROFILE.FORM.PHONE' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput formControlName="phone" />
           </mat-form-field>
 
-          <mat-label>País</mat-label>
+          <mat-label>>{{ 'PROFILE.FORM.COUNTRY' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput formControlName="country" />
           </mat-form-field>
 
-          <mat-label>Fecha de nacimiento</mat-label>
+          <mat-label>{{ 'PROFILE.FORM.BIRTH_DATE' | translate }}</mat-label>
           <mat-form-field appearance="fill">
             <input matInput type="date" formControlName="birthDate" />
           </mat-form-field>
 
           <div class="form-buttons">
             <button *ngIf="!isEditMode" mat-stroked-button color="primary" type="button" (click)="enableEdit()">
-              Editar
+              {{ 'PROFILE.ACTIONS.EDIT' | translate }}
             </button>
 
             <button *ngIf="isEditMode" mat-raised-button color="primary" type="submit">
-              Guardar
+              {{ 'PROFILE.ACTIONS.SAVE' | translate }}
             </button>
           </div>
         </form>

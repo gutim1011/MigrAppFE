@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LegalProcessService } from '../../services/legal-process.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-overview.component'
+import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-overview.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
@@ -21,6 +22,7 @@ import {AppSalesOverviewComponent} from '../../components/sales-overview/sales-o
     NotificationModalComponent,
     MatProgressBarModule,
     AppSalesOverviewComponent,
+    TranslateModule,
   ],
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']

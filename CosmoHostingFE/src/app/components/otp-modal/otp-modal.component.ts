@@ -6,7 +6,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
-import {MfaResponse} from 'src/app/models/mfa-response.model'
+import {MfaResponse} from 'src/app/models/mfa-response.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-otp-modal',
@@ -16,7 +18,8 @@ import {MfaResponse} from 'src/app/models/mfa-response.model'
     ReactiveFormsModule,
     MaterialModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './otp-modal.component.html',
 })
@@ -33,7 +36,6 @@ export class OtpModalComponent {
 
   validateOtp() {
     if (this.otpForm.invalid) {
-      alert('Por favor, ingresa un código OTP válido.');
       return;
     }
   
@@ -52,12 +54,11 @@ export class OtpModalComponent {
           console.log('Verificación exitosa');
           this.dialogRef.close(true); // <-- Éxito
         } else {
-          alert('Código incorrecto');
+          console.log("error");
         }
       },
       error: (err) => {
         console.error(err);
-        alert('Error al verificar código');
       }
     });
   }

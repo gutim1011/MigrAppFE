@@ -1,8 +1,8 @@
 <mat-card class="process-card">
-  <h2 class="card-title">Mis Procesos</h2>
+  <h2 class="card-title">{{ 'LEGALPROCESS.MY_PROCESSES' | translate }}</h2>
 
   <div *ngIf="processes.length === 0" class="no-processes-msg">
-    <p>No tienes procesos legales registrados.</p>
+    <p>{{ 'LEGALPROCESS.NO_PROCESSES_MSG' | translate }}</p>
   </div>
 
   <div *ngIf="processes.length > 0">
@@ -10,12 +10,12 @@
       <mat-list-item *ngFor="let process of processes" class="process-item">
         <div class="item-content">
           <div>
-            <h3>{{ process.title || 'Proceso sin título' }}</h3>
-            <p>Estado: {{ process.status || 'Desconocido' }}</p>
+            <h3>{{ process.title || ('UNTITLED_PROCESS' | translate) }}</h3>
+            <p>{{ 'LEGALPROCESS.STATUS' | translate }}: {{ process.status || ('LEGALPROCESS.UNKNOWN_STATUS' | translate) }}</p>
           </div>
           <div>
             <button mat-raised-button color="primary" (click)="viewDetails(process.legalProcessId); $event.stopPropagation()">
-              Ver más
+              {{ 'LEGALPROCESS.VIEW_MORE' | translate }}
             </button>
           </div>
         </div>
