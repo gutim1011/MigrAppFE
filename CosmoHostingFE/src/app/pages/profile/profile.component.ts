@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/services/auth.service';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
@@ -26,6 +27,8 @@ import { TranslateModule } from '@ngx-translate/core';
 export class CompleteProfileComponent {
   fb = inject(FormBuilder);
   userService = inject(AuthService);
+  toastr = inject(ToastrService);
+  translate = inject(TranslateService);
 
   profileForm = this.fb.group({
     name: ['', Validators.required],
@@ -39,7 +42,6 @@ export class CompleteProfileComponent {
   isEditMode = false;
   hasInfo = false;
   userId: number = 0;
-
   userImageUrl: string = 'assets/images/default-avatar.jpg';
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class CompleteProfileComponent {
 
     if (!this.userId) return;
 
-    this.fetchUserProfile(); // Carga la foto de perfil
+    this.fetchUserProfile();
 
     this.userService.getUserInfo(this.userId).subscribe({
       next: (data) => {
@@ -69,6 +71,10 @@ export class CompleteProfileComponent {
       error: () => {
         this.hasInfo = false;
         this.profileForm.disable();
+        this.toastr.info(
+          this.translate.instant('PROFILE.LOAD_INFO_FAILED'),
+          this.translate.instant('PROFILE.INCOMPLETE')
+        );
       }
     });
   }
@@ -80,6 +86,10 @@ export class CompleteProfileComponent {
       },
       error: (err: any) => {
         console.error('Error loading profile image:', err);
+        this.toastr.error(
+          this.translate.instant('PROFILE.IMAGE_ERROR'),
+          this.translate.instant('PROFILE.ERROR')
+        );
       }
     });
   }
@@ -90,7 +100,13 @@ export class CompleteProfileComponent {
   }
 
   onSubmit() {
-    if (this.profileForm.invalid) return;
+    if (this.profileForm.invalid) {
+      this.toastr.warning(
+        this.translate.instant('PROFILE.FILL_REQUIRED_FIELDS'),
+        this.translate.instant('PROFILE.INVALID_FORM')
+      );
+      return;
+    }
 
     const storedId = localStorage.getItem('userId');
     if (storedId) {
@@ -100,12 +116,20 @@ export class CompleteProfileComponent {
     const formData = this.profileForm.value;
 
     this.userService.updateUser(this.userId, formData).subscribe({
-      next: (res) => {
-        alert('Datos actualizados correctamente');
+      next: () => {
+        this.toastr.success(
+          this.translate.instant('PROFILE.UPDATE_SUCCESS'),
+          this.translate.instant('PROFILE.SUCCESS')
+        );
         this.isEditMode = false;
         this.profileForm.disable();
       },
-      error: () => alert('Error al actualizar los datos')
+      error: () => {
+        this.toastr.error(
+          this.translate.instant('PROFILE.UPDATE_ERROR'),
+          this.translate.instant('PROFILE.ERROR')
+        );
+      }
     });
   }
 }

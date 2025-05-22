@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MfaResponse } from '../models/mfa-response.model';
-import { User } from '../models/user';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({

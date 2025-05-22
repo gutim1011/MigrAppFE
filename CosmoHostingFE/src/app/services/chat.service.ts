@@ -4,8 +4,10 @@ import { AuthService } from './auth.service';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { MessageRequest } from '../models/message-request';
 import { Message } from '../models/message';
-import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,8 @@ import { Router } from '@angular/router';
 export class ChatService {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
+  private translate = inject(TranslateService);
   private hubUrl = 'http://localhost:5199/hubs/chat';
 
   onlineUsers = signal<User[]>([]);
@@ -28,16 +32,13 @@ export class ChatService {
   private typingTimeout?: any;
   private connectionPromise: Promise<void> | null = null;
 
-  // Método para asegurar la conexión antes de usar el chat
   async ensureConnection(): Promise<void> {
-    if (this.hubConnection?.state === 'Connected') {
-      return Promise.resolve();
-    }
-    
+    if (this.hubConnection?.state === 'Connected') return;
+
     if (!this.connectionPromise) {
       this.connectionPromise = this.startConnection();
     }
-    
+
     return this.connectionPromise;
   }
 
@@ -58,17 +59,22 @@ export class ChatService {
 
     try {
       await this.hubConnection.start();
-      console.log('Conexión establecida con SignalR');
       await this.waitForAssignedUsers(3000);
-      
-      // Determinar si el usuario es abogado
+
       const userType = await this.determineUserType();
       this.isLawyer.set(userType === 'lawyer');
-      
+
+      this.toastr.success(
+        this.translate.instant('CHAT.CONNECTED'),
+        this.translate.instant('CHAT.TITLE')
+      );
       this.loading.set(false);
-        
     } catch (err) {
       console.error('Error al conectar con SignalR', err);
+      this.toastr.error(
+        this.translate.instant('CHAT.CONNECTION_ERROR'),
+        this.translate.instant('CHAT.TITLE')
+      );
       this.loading.set(false);
       throw err;
     }
@@ -77,11 +83,14 @@ export class ChatService {
   private async determineUserType(): Promise<string> {
     try {
       const users = this.onlineUsers();
-      console.log("número de usuarios: ", users.length)
       return users.length > 1 ? 'lawyer' : 'user';
     } catch (error) {
       console.error('Error al determinar el tipo de usuario', error);
-      return 'user'; 
+      this.toastr.warning(
+        this.translate.instant('CHAT.ROLE_UNDETECTED'),
+        this.translate.instant('CHAT.WARNING')
+      );
+      return 'user';
     }
   }
 
@@ -90,18 +99,14 @@ export class ChatService {
 
     this.hubConnection.on('AllLawyers', (users: User[]) => {
       this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) })));
-      console.log('Usuarios en línea actualizados:', users);
-      
       if (users.length === 1 && !this.isLawyer()) {
         this.openChat(users[0]);
       }
     });
 
     this.hubConnection.on('AssignedClients', (users: User[]) => {
-      this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) }))); 
-      console.log('Clientes asignados recibidos:', users);
+      this.onlineUsers.set(users.map(u => ({ ...u, id: Number(u.id) })));
     });
-
 
     this.hubConnection.on('ReceiveMessageList', (messages: Message[]) => {
       this.messages.set(messages.map(m => ({
@@ -110,7 +115,6 @@ export class ChatService {
         senderId: Number(m.senderId),
         receiverId: Number(m.receiverId)
       })));
-      console.log('Mensajes cargados:', messages);
     });
 
     this.hubConnection.on('ReceiveNewMessage', (message: Message) => {
@@ -127,9 +131,11 @@ export class ChatService {
       const currentChat = this.currentOpenedChat();
       if (!currentChat || currentChat.id !== parsed.senderId) {
         this.updateUnreadCount(parsed.senderId);
+        this.toastr.info(
+          this.translate.instant('CHAT.NEW_MESSAGE'),
+          this.translate.instant('CHAT.TITLE')
+        );
       }
-
-      console.log('Nuevo mensaje recibido:', parsed);
     });
 
     this.hubConnection.on('NotifyTypingToUser', (senderId: number) => {
@@ -143,8 +149,7 @@ export class ChatService {
       this.onlineUsers.set(updatedUsers);
 
       setTimeout(() => {
-        const currentUsers = this.onlineUsers();
-        const resetUsers = currentUsers.map(user =>
+        const resetUsers = this.onlineUsers().map(user =>
           user.id === Number(senderId)
             ? { ...user, isTyping: false }
             : user
@@ -159,77 +164,87 @@ export class ChatService {
     });
   }
 
-  // Método para ir directamente al chat como cliente
   async goToClientChat(): Promise<boolean> {
     try {
       await this.ensureConnection();
-
       const users = await this.waitForAssignedUsers(3000);
-      console.log('Usuarios asignados al entrar al chat:', users);
 
-      // Verifica que al menos haya un abogado asignado
       if (!users || !Array.isArray(users) || users.length === 0) {
-        throw new Error('No tienes un abogado asignado. Inténtalo más tarde.');
+        this.toastr.warning(
+          this.translate.instant('CHAT.NO_LAWYER_ASSIGNED'),
+          this.translate.instant('CHAT.TITLE')
+        );
+        return false;
       }
 
       return await this.router.navigate(['/live-chat']);
     } catch (error) {
       console.error('Error interno en goToClientChat:', error);
-      throw error; // vuelve a lanzar para ser capturado en goToChat
+      this.toastr.error(
+        this.translate.instant('CHAT.ERROR_OPENING_CHAT'),
+        this.translate.instant('CHAT.TITLE')
+      );
+      throw error;
     }
   }
 
   loadMessages(receiverId: number, pageNumber: number = 1) {
     if (!this.hubConnection) {
-      console.error('No hay conexión establecida');
+      this.toastr.error(
+        this.translate.instant('CHAT.NO_CONNECTION'),
+        this.translate.instant('CHAT.TITLE')
+      );
       return;
     }
 
     this.loading.set(true);
 
-    this.hubConnection.invoke('LoadMessages', Number(receiverId), pageNumber)
+    this.hubConnection.invoke('LoadMessages', receiverId, pageNumber)
       .then(() => {
         this.resetUnreadCount(receiverId);
         this.loading.set(false);
       })
       .catch(err => {
-        console.error('Error al cargar mensajes:', err);
+        console.error(err);
+        this.toastr.error(
+          this.translate.instant('CHAT.LOAD_MESSAGES_ERROR'),
+          this.translate.instant('CHAT.TITLE')
+        );
         this.loading.set(false);
       });
   }
 
   sendMessage(receiverId: number, content: string) {
     if (!this.hubConnection) {
-      console.error('No hay conexión establecida');
+      this.toastr.error(
+        this.translate.instant('CHAT.NO_CONNECTION'),
+        this.translate.instant('CHAT.TITLE')
+      );
       return;
     }
 
     const senderId = Number(this.authService.currentLoggedUser);
-
     const newMessage: Message = {
-      id: Date.now(), // ID temporal
-      content: content,
+      id: Date.now(),
+      content,
       createdDate: new Date().toISOString(),
-      senderId: senderId,
-      receiverId: receiverId,
-      isRead: true // ya lo leyó el emisor
+      senderId,
+      receiverId,
+      isRead: true
     };
 
-    // Agregar mensaje local inmediatamente
     const currentMessages = this.messages();
     this.messages.set([...currentMessages, newMessage]);
 
-    const messageRequest: MessageRequest = {
-      receiverId: receiverId,
-      content: content
-    };
+    const messageRequest: MessageRequest = { receiverId, content };
 
     return this.hubConnection.invoke('SendMessage', messageRequest)
-      .then(() => {
-        console.log('Mensaje enviado al backend');
-      })
       .catch(err => {
-        console.error('Error al enviar mensaje:', err);
+        console.error(err);
+        this.toastr.error(
+          this.translate.instant('CHAT.SEND_ERROR'),
+          this.translate.instant('CHAT.TITLE')
+        );
       });
   }
 
@@ -238,8 +253,14 @@ export class ChatService {
 
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
-      this.hubConnection?.invoke('NotifyTyping', Number(receiverId))
-        .catch(err => console.error('Error al notificar escritura:', err));
+      this.hubConnection?.invoke('NotifyTyping', receiverId)
+        .catch(err => {
+          console.error(err);
+          this.toastr.error(
+            this.translate.instant('CHAT.TYPING_ERROR'),
+            this.translate.instant('CHAT.TITLE')
+          );
+        });
     }, 300);
   }
 
@@ -268,14 +289,14 @@ export class ChatService {
 
   private updateUnreadCount(senderId: number) {
     const unreadCounts = this.unreadMessagesSubject.value;
-    unreadCounts[Number(senderId)] = (unreadCounts[Number(senderId)] || 0) + 1;
+    unreadCounts[senderId] = (unreadCounts[senderId] || 0) + 1;
     this.unreadMessagesSubject.next(unreadCounts);
   }
 
   private resetUnreadCount(userId: number) {
     const unreadCounts = this.unreadMessagesSubject.value;
-    if (unreadCounts[Number(userId)]) {
-      unreadCounts[Number(userId)] = 0;
+    if (unreadCounts[userId]) {
+      unreadCounts[userId] = 0;
       this.unreadMessagesSubject.next(unreadCounts);
     }
   }
@@ -301,8 +322,19 @@ export class ChatService {
   disconnect() {
     if (this.hubConnection) {
       this.hubConnection.stop()
-        .then(() => console.log('Desconectado de SignalR'))
-        .catch(err => console.error('Error al desconectar:', err));
+        .then(() => {
+          this.toastr.info(
+            this.translate.instant('CHAT.DISCONNECTED'),
+            this.translate.instant('CHAT.TITLE')
+          );
+        })
+        .catch(err => {
+          console.error('Error al desconectar:', err);
+          this.toastr.error(
+            this.translate.instant('CHAT.DISCONNECT_ERROR'),
+            this.translate.instant('CHAT.TITLE')
+          );
+        });
       this.connectionPromise = null;
     }
   }

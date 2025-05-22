@@ -1,17 +1,174 @@
 {
+  "LOGIN": {
+  "TITLE": "Login",
+  "EMAIL": "Email",
+  "INVALID_EMAIL": "Enter a valid email",
+  "PASSWORD": "Password",
+  "INVALID_PASSWORD": "Password must be at least 6 characters",
+  "REMEMBER_ME": "Remember me",
+  "LOGIN_BUTTON": "Login",
+  "NO_ACCOUNT": "Don't have an account?",
+  "REGISTER": "Register",
+  "INVALID_FORM": "Please complete all fields correctly.",
+  "WARNING": "Warning",
+  "SUCCESS_MESSAGE": "Login successful.",
+  "WELCOME": "Welcome",
+  "OTP_CANCELLED": "Verification code cancelled.",
+  "INTERRUPTED": "Process interrupted",
+  "OTP_FAILED": "Verification code could not be sent.",
+  "LOGIN_FAILED": "Error during login.",
+  "ERROR": "Error"
+},
+"REGISTER": {
+    "TITLE": "Create your account",
+    "EMAIL_LABEL": "Email",
+    "EMAIL_SPEECH": "Enter your email address",
+    "EMAIL_ERROR": "Please enter a valid email",
+    
+    "PREFIX_LABEL": "Prefix",
+    "PREFIX_SPEECH": "Enter your country prefix",
+    "PREFIX_ERROR": "Enter a valid prefix, don't forget the +",
+    
+    "PHONE_LABEL": "Phone",
+    "PHONE_SPEECH": "Enter your phone number",
+    "PHONE_ERROR": "Please enter a valid phone number",
+    
+    "PASSWORD_LABEL": "Password",
+    "PASSWORD_SPEECH": "Enter a password",
+    "PASSWORD_ERROR": "Password must be at least 6 characters",
+    
+    "CONFIRM_LABEL": "Confirm password",
+    "CONFIRM_SPEECH": "Confirm your password",
+    "CONFIRM_ERROR": "Password confirmation is required",
+    
+    "SUBMIT": "Register",
+    "LOGIN_PROMPT": "Already have an account?",
+    "LOGIN_LINK": "Log in",
+
+    "INVALID_FORM": "Please complete all fields correctly.",
+    "WARNING": "Warning",
+    "PASSWORD_MISMATCH": "Passwords do not match.",
+    "VALIDATION_ERROR": "Validation Error",
+    "SUCCESS": "Registration and authentication successful",
+    "WELCOME": "Welcome",
+    "OTP_CANCELLED": "OTP code was not verified.",
+    "VERIFICATION_INCOMPLETE": "Verification incomplete",
+    "OTP_FAILED": "Failed to send verification code.",
+    "POST_LOGIN_FAILED": "Error during post-registration login",
+    "REGISTRATION_FAILED": "Failed to register user",
+    "ERROR": "Error"
+  },
   "DASHBOARD": {
     "NOTIFICATIONS": "Notifications",
     "ALERTS": "Alerts",
     "OVERALL_PROGRESS": "Overall progress:",
-    "CHART_PLACEHOLDER": "*Chart goes here*",
+    "PERCENTAGE": "{{percent}}%",
+    "NO_EMAIL": "No email available",
     "PENDING_TASKS": "Pending tasks",
     "TASK_COUNT": "You have {{count}} pending tasks",
     "TASK_ITEM": "Task #{{number}}",
     "SPEAK_TO_ADVISOR": "Speak to an advisor",
-    "NO_EMAIL": "No email available",
-    "NOTIFICATION_TITLE": "Document Expired",
-    "NOTIFICATION_CONTENT": "Your passport has expired. Please upload a new one.",
-    "ALERT_TITLE": "Important Alert",
-    "ALERT_CONTENT": "You need to update your information."
+    "LOGOUT": "Logout",
+    "NO_LAWYERS_AVAILABLE": "No advisors are available at the moment. Please try again later.",
+    "CHAT_UNAVAILABLE": "Chat unavailable",
+    "CONNECTION_ERROR": "There was a problem connecting to the chat service. Please try again.",
+    "ERROR": "Error"
+  },
+   "OTP_DIALOG": {
+    "TITLE": "OTP Verification",
+    "MESSAGE": "A verification code has been sent to your email.",
+    "LABEL": "Verification code",
+    "CANCEL": "Cancel",
+    "VERIFY": "Verify"
+  },
+  "PROFILE": {
+    "MENU": {
+      "INFO": "My Information",
+      "DOCS": "My Documents",
+      "PAYMENTS": "My Payments"
+    },
+    "NO_INFO": "You haven't completed your information yet. Please complete it.",
+    "FORM": {
+      "NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "PHONE_PREFIX": "Prefix",
+      "PHONE": "Phone",
+      "COUNTRY": "Country",
+      "BIRTH_DATE": "Birth Date",
+      "PLACEHOLDER_NAME": "Enter your first name",
+      "PLACEHOLDER_LAST_NAME": "Enter your last name"
+    },
+    "ACTIONS": {
+      "EDIT": "Edit",
+      "SAVE": "Save"
+    },
+    "LOAD_INFO_FAILED": "Failed to load user information",
+    "INCOMPLETE": "Incomplete profile",
+    "IMAGE_ERROR": "Error loading profile image",
+    "FILL_REQUIRED_FIELDS": "Please complete all required fields.",
+    "INVALID_FORM": "Invalid form",
+    "UPDATE_SUCCESS": "Data updated successfully",
+    "UPDATE_ERROR": "Failed to update data",
+    "SUCCESS": "Success",
+    "ERROR": "Error"
+  },
+  "PROCESS_CARD": {
+    "TITLE": "Process",
+    "STATUS": "Status",
+    "PAYMENT_STATUS": "Payment Status",
+    "COST": "Cost",
+    "LEGAL_PROCESS_ID": "Legal Process ID",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date",
+    "PROCEDURES_TITLE": "Procedures",
+    "PROCEDURE_STATUS": "Status",
+    "DUE_DATE": "Due Date",
+    "DOCUMENTS": "Documents",
+    "UPLOADED": "Uploaded",
+    "PENDING": "Pending",
+    "UPLOAD_BUTTON": "Upload file"
+  },
+  "LEGALPROCESS":{
+  "MY_PROCESSES": "My Processes",
+  "NO_PROCESSES_MSG": "You have no registered legal processes.",
+  "UNKNOWN_STATUS": "Unknown",
+  "UNTITLED_PROCESS": "Untitled process",
+  "VIEW_MORE": "View more",
+  "STATUS": "Status"
+  },
+  "NAV": {
+    "HOME": "Home",
+    "MY_PROCESSES": "My Processes",
+    "LANGUAGE": "Language",
+    "HELP": "Help"
+  },
+  "LANG": {
+    "ES": "Spanish",
+    "EN": "English"
+  },
+   "PROCESS_DETAIL": {
+    "LOAD_ERROR": "Could not load legal process.",
+    "UPLOAD_SUCCESS": "File uploaded successfully.",
+    "UPLOAD_ERROR": "Error uploading the file.",
+    "NO_FILE_SELECTED": "Please select a file first.",
+    "WARNING": "Warning",
+    "SUCCESS": "Success",
+    "ERROR": "Error"
+  },
+  "CHAT": {
+    "TITLE": "Chat",
+    "CONNECTED": "Connected to real-time chat",
+    "CONNECTION_ERROR": "Could not connect to real-time chat",
+    "DISCONNECTED": "Disconnected from chat",
+    "DISCONNECT_ERROR": "Could not properly close the connection.",
+    "ROLE_UNDETECTED": "Could not determine your user role.",
+    "NO_LAWYER_ASSIGNED": "You don't have an assigned lawyer. Try again later.",
+    "ERROR_OPENING_CHAT": "Error opening chat",
+    "NO_CONNECTION": "No connection established with the chat server.",
+    "LOAD_MESSAGES_ERROR": "Messages could not be loaded.",
+    "SEND_ERROR": "Message could not be sent.",
+    "TYPING_ERROR": "Could not notify typing status.",
+    "NEW_MESSAGE": "New message received",
+    "WARNING": "Warning"
   }
 }

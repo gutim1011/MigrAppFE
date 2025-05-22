@@ -25,7 +25,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/assets/scss/style.scss","node_modules/intl-tel-input/build/css/intlTelInput.css"],
+            "styles": ["src/styles.scss", "src/assets/scss/style.scss","node_modules/intl-tel-input/build/css/intlTelInput.css", "node_modules/ngx-toastr/toastr.css"],
             "scripts": []
           },
           "configurations": {

@@ -81,7 +81,7 @@
       <h4>{{ 'DASHBOARD.PENDING_TASKS' | translate }}</h4>
       <p>{{ 'DASHBOARD.TASK_COUNT' | translate:{ count: 5 } }}</p>
       <ul>
-        <li *ngFor="let t of [1,2,3,4,5]">T{{ 'DASHBOARD.TASK_ITEM' | translate:{ number: t } }}</li>
+        <li *ngFor="let t of [1,2,3,4,5]">{{ 'DASHBOARD.TASK_ITEM' | translate:{ number: t } }}</li>
       </ul>
     </div>
   </div>
@@ -90,11 +90,6 @@
   <button class="chat-button" (click)="goToChat()">
     <i class="fa-solid fa-headset"></i>
     {{ 'DASHBOARD.SPEAK_TO_ADVISOR' | translate }}
-  </button>
-
-  <button class="chat-button" (click)="logout()">
-    <i class="fa-solid fa-headset"></i>
-    {{ 'DASHBOARD.LOGOUT' | translate }}
   </button>
 </div>
 

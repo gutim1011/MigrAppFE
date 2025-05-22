@@ -5,6 +5,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationModalComponent } from './notification-modal.component';
 import { AlertModalComponent } from './alert-modal.components';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { LegalProcessService } from '../../services/legal-process.service';
@@ -31,12 +33,15 @@ import { ChartType, ChartOptions, ChartData } from 'chart.js';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    private toastr: ToastrService,
+    private translate: TranslateService
+  ) {}
 
   authService = inject(AuthService);
-
   legalService = inject(LegalProcessService);
-
   chatService = inject(ChatService);
 
   userData: any = {};
@@ -58,6 +63,7 @@ export class UserDashboardComponent implements OnInit {
       }
     }
   };
+
   chartDataSet: ChartData<'bar'> = {
     labels: [],
     datasets: [
@@ -140,10 +146,10 @@ export class UserDashboardComponent implements OnInit {
     const backgroundColors = processes.map(proc => {
       const status = (proc.status || '').toLowerCase();
       switch(status) {
-        case 'pending': return '#f44336';      // rojo
-        case 'in progress': return '#ff9800';  // naranja
-        case 'completed': return '#4caf50';    // verde
-        default: return '#4caf50';              // azul
+        case 'pending': return '#f44336';
+        case 'in progress': return '#ff9800';
+        case 'completed': return '#4caf50';
+        default: return '#4caf50';
       }
     });
 
@@ -159,26 +165,24 @@ export class UserDashboardComponent implements OnInit {
     };
   }
 
-
   async goToChat(): Promise<void> {
     try {
       await this.chatService.ensureConnection();
-      
       const result = await this.chatService.goToClientChat();
-      
+
       if (!result) {
-        alert('No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.');
+        this.toastr.warning(
+          this.translate.instant('DASHBOARD.NO_LAWYERS_AVAILABLE'),
+          this.translate.instant('DASHBOARD.CHAT_UNAVAILABLE')
+        );
       }
     } catch (error) {
       console.error('Error al acceder al chat:', error);
-      alert('Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.');
+      this.toastr.error(
+        this.translate.instant('DASHBOARD.CONNECTION_ERROR'),
+        this.translate.instant('DASHBOARD.ERROR')
+      );
     }
-  }
-
-  logout(): void {
-    this.chatService.disconnect();
-    this.authService.logout();
-    this.router.navigate(['/authentication/login']);
   }
 
   openNotificationDialog(note: any) {

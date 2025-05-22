@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OtpModalComponent } from '../../../components/otp-modal/otp-modal.component';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -28,6 +30,8 @@ export class AppSideLoginComponent {
     private authService: AuthService,
     public dialog: MatDialog,
     private tts: TextToSpeechService,
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {}
 
   form = new FormGroup({
@@ -47,7 +51,10 @@ export class AppSideLoginComponent {
 
   submit() {
     if (this.form.invalid) {
-      alert('Por favor, completa todos los campos correctamente.');
+      this.toastr.warning(
+        this.translate.instant('LOGIN.INVALID_FORM'),
+        this.translate.instant('LOGIN.WARNING')
+      );
       return;
     }
 
@@ -68,15 +75,30 @@ export class AppSideLoginComponent {
 
           dialogRef.afterClosed().subscribe((success: boolean) => {
             if (success) {
+              this.toastr.success(
+                this.translate.instant('LOGIN.SUCCESS_MESSAGE'),
+                this.translate.instant('LOGIN.WELCOME')
+              );
               this.router.navigate(['/user-dashboard']);
+            } else {
+              this.toastr.info(
+                this.translate.instant('LOGIN.OTP_CANCELLED'),
+                this.translate.instant('LOGIN.INTERRUPTED')
+              );
             }
           });
         } else {
-          alert('No se pudo enviar el código de verificación');
+          this.toastr.error(
+            this.translate.instant('LOGIN.OTP_FAILED'),
+            this.translate.instant('LOGIN.ERROR')
+          );
         }
       },
       (error) => {
-        alert('Error al iniciar sesión');
+        this.toastr.error(
+          this.translate.instant('LOGIN.LOGIN_FAILED'),
+          this.translate.instant('LOGIN.ERROR')
+        );
         console.error(error);
       }
     );

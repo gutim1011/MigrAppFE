@@ -37,6 +37,11 @@
         <i-tabler name="help-circle" class="icon-20"></i-tabler>
         {{ 'NAV.HELP' | translate }}
       </button>
+
+      <button class="chat-button" (click)="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        {{ 'DASHBOARD.LOGOUT' | translate }}
+      </button>
     </div>
   
     <!-- Avatar -->
@@ -127,4 +132,27 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
 }
+
+.chat-button {
+
+    bottom: 24px;
+    right: 24px;
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    i {
+      margin-right: 0.5rem;
+    }
+
+    &:hover {
+      background-color: #1565c0;
+    }
+  }
 </style>
