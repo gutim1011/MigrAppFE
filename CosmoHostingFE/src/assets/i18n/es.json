@@ -8,7 +8,16 @@
   "REMEMBER_ME": "Recuérdame",
   "LOGIN_BUTTON": "Iniciar Sesión",
   "NO_ACCOUNT": "¿Aún no tienes cuenta?",
-  "REGISTER": "Regístrate"
+  "REGISTER": "Regístrate",
+  "INVALID_FORM": "Por favor, completa todos los campos correctamente.",
+  "WARNING": "Advertencia",
+  "SUCCESS_MESSAGE": "Inicio de sesión exitoso.",
+  "WELCOME": "Bienvenido",
+  "OTP_CANCELLED": "Código de verificación cancelado.",
+  "INTERRUPTED": "Proceso interrumpido",
+  "OTP_FAILED": "No se pudo enviar el código de verificación.",
+  "LOGIN_FAILED": "Error al iniciar sesión.",
+  "ERROR": "Error"
 },
   "REGISTER": {
     "TITLE": "Crea tu cuenta",
@@ -34,7 +43,20 @@
     
     "SUBMIT": "Regístrate",
     "LOGIN_PROMPT": "¿Ya tienes cuenta?",
-    "LOGIN_LINK": "Inicia Sesión"
+    "LOGIN_LINK": "Inicia Sesión",
+
+    "INVALID_FORM": "Por favor, completa todos los campos correctamente.",
+    "WARNING": "Advertencia",
+    "PASSWORD_MISMATCH": "Las contraseñas no coinciden.",
+    "VALIDATION_ERROR": "Error de validación",
+    "SUCCESS": "Registro y autenticación exitosa",
+    "WELCOME": "Bienvenido",
+    "OTP_CANCELLED": "No se verificó el código OTP.",
+    "VERIFICATION_INCOMPLETE": "Verificación incompleta",
+    "OTP_FAILED": "No se pudo enviar el código de verificación.",
+    "POST_LOGIN_FAILED": "Error durante el login post-registro",
+    "REGISTRATION_FAILED": "Error al registrar usuario",
+    "ERROR": "Error"
   },
   "DASHBOARD": {
     "NOTIFICATIONS": "Notificaciones",
@@ -46,7 +68,11 @@
     "TASK_COUNT": "Tienes {{count}} tareas pendientes",
     "TASK_ITEM": "Tarea #{{number}}",
     "SPEAK_TO_ADVISOR": "Habla con un asesor",
-    "LOGOUT": "Cerrar sesión"
+    "LOGOUT": "Cerrar sesión",
+    "NO_LAWYERS_AVAILABLE": "No hay asesores disponibles en este momento. Por favor, inténtelo más tarde.",
+    "CHAT_UNAVAILABLE": "Chat no disponible",
+    "CONNECTION_ERROR": "Hubo un problema al conectar con el servicio de chat. Por favor, inténtelo de nuevo.",
+    "ERROR": "Error"
   },
   "OTP_DIALOG": {
     "TITLE": "Verificación OTP",
@@ -57,25 +83,34 @@
   },
   "PROFILE": {
     "MENU": {
-      "INFO": "My Information",
-      "DOCS": "My Documents",
-      "PAYMENTS": "My Payments"
+      "INFO": "Mi información",
+      "DOCS": "Mis documentos",
+      "PAYMENTS": "Mis pagos"
     },
-    "NO_INFO": "You haven't completed your information yet. Please complete it.",
+    "NO_INFO": "No has completado tu información aún. Por favor complétala.",
     "FORM": {
-      "NAME": "First Name",
-      "LAST_NAME": "Last Name",
-      "PHONE_PREFIX": "Prefix",
-      "PHONE": "Phone",
-      "COUNTRY": "Country",
-      "BIRTH_DATE": "Birth Date",
-      "PLACEHOLDER_NAME": "Enter your first name",
-      "PLACEHOLDER_LAST_NAME": "Enter your last name"
+      "NAME": "Nombre",
+      "LAST_NAME": "Apellido",
+      "PHONE_PREFIX": "Prefijo",
+      "PHONE": "Teléfono",
+      "COUNTRY": "País",
+      "BIRTH_DATE": "Fecha de nacimiento",
+      "PLACEHOLDER_NAME": "Escribe tu nombre",
+      "PLACEHOLDER_LAST_NAME": "Escribe tu apellido"
     },
     "ACTIONS": {
-      "EDIT": "Edit",
-      "SAVE": "Save"
-    }
+      "EDIT": "Editar",
+      "SAVE": "Guardar"
+    },
+    "LOAD_INFO_FAILED": "No se pudo cargar la información del usuario",
+    "INCOMPLETE": "Perfil incompleto",
+    "IMAGE_ERROR": "Error al cargar la imagen de perfil",
+    "FILL_REQUIRED_FIELDS": "Por favor completa todos los campos requeridos.",
+    "INVALID_FORM": "Formulario inválido",
+    "UPDATE_SUCCESS": "Datos actualizados correctamente",
+    "UPDATE_ERROR": "Error al actualizar los datos",
+    "SUCCESS": "Éxito",
+    "ERROR": "Error"
   },
   "PROCESS_CARD": {
     "TITLE": "Proceso",
@@ -110,5 +145,30 @@
   "LANG": {
     "ES": "Español",
     "EN": "Inglés"
+  },
+  "PROCESS_DETAIL": {
+    "LOAD_ERROR": "No se pudo cargar el proceso legal.",
+    "UPLOAD_SUCCESS": "Archivo subido correctamente.",
+    "UPLOAD_ERROR": "Error al subir el archivo.",
+    "NO_FILE_SELECTED": "Por favor selecciona un archivo primero.",
+    "WARNING": "Advertencia",
+    "SUCCESS": "Éxito",
+    "ERROR": "Error"
+  },
+  "CHAT": {
+  "TITLE": "Chat",
+  "CONNECTED": "Conectado al chat en tiempo real",
+  "CONNECTION_ERROR": "No se pudo conectar al chat en tiempo real",
+  "DISCONNECTED": "Desconectado del chat",
+  "DISCONNECT_ERROR": "No se pudo cerrar la conexión correctamente.",
+  "ROLE_UNDETECTED": "No se pudo determinar tu rol de usuario.",
+  "NO_LAWYER_ASSIGNED": "No tienes un abogado asignado. Inténtalo más tarde.",
+  "ERROR_OPENING_CHAT": "Error al abrir el chat",
+  "NO_CONNECTION": "No hay conexión establecida con el servidor de chat.",
+  "LOAD_MESSAGES_ERROR": "No se pudieron cargar los mensajes.",
+  "SEND_ERROR": "No se pudo enviar el mensaje.",
+  "TYPING_ERROR": "No se pudo notificar que estás escribiendo.",
+  "NEW_MESSAGE": "Nuevo mensaje recibido",
+  "WARNING": "Advertencia"
   }
 }

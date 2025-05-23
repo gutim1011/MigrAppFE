@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MfaResponse } from '../models/mfa-response.model';
-import { User } from '../models/user';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -27,8 +26,10 @@ export class AuthService {
   }
 
   getHelpContent(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/userHelp`);
-  }
+  const lang = localStorage.getItem('language') || 'es'; // Valor por defecto: 'es'
+  return this.http.get(`${this.apiUrl}/userHelp/?lang=${lang}`);
+}
+
 
   getUserInfo(userId: number) {
   const token = localStorage.getItem('authToken');

@@ -27,6 +27,10 @@ export class LegalProcessService {
     return this.http.get<any>(`${this.apiUrl}/legalProcess/${processId}`, { headers });
   }
 
+  getProcessById(processId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${processId}`);
+  }
+
   uploadDocument(procedureId: number, documentId: number, formData: FormData): Observable<any> {
   const headers = this.getAuthHeaders();
   return this.http.post<any>(
