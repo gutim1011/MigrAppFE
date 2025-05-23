@@ -55,5 +55,10 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~5.6.3"
-  }
+  },
+  "description": "MaterialPro Angular Admin Dashboard",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
